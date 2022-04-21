@@ -10,6 +10,7 @@ const AllRoutes = () => {
     { path: "/job-dashboard", component: <JobDashboard /> },
     { path: "/skills", component: <HomePage /> },
     { path: "/contacts", component: <HomePage /> },
+    { path: "/account", component: <HomePage /> },
   ];
 
   // TODO

@@ -5,16 +5,16 @@ const HireTrackNavBar = () => {
   return (
     <Navbar expand="md" sticky="top">
       <Container>
-        <Navbar.Brand>HireTrack</Navbar.Brand>
+        <Navbar.Brand href="/">HireTrack</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavDropdown title="Actions" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Jobs</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Skills</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Contacts</NavDropdown.Item>
+            <NavDropdown title="Menu" id="basic-nav-dropdown">
+              <NavDropdown.Item href="job-dashboard">Jobs</NavDropdown.Item>
+              <NavDropdown.Item href="skills">Skills</NavDropdown.Item>
+              <NavDropdown.Item href="contacts">Contacts</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Account</NavDropdown.Item>
+              <NavDropdown.Item href="account">Account</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

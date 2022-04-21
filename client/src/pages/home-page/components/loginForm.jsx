@@ -3,15 +3,20 @@ import { Form, Button } from "react-bootstrap";
 
 const LogInForm = () => {
   return (
-    <Form>
-      <Form.Group>
-        <Form.Control type="email" placeholder="Email Address"></Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Control type="password" placeholder="Password"></Form.Control>
-      </Form.Group>
-      <Button>Log In</Button>
-    </Form>
+    <div>
+      <h3 className="header-2 bottom-border">Log In</h3>
+      <Form>
+        <Form.Group>
+          <Form.Control type="email" placeholder="Email Address"></Form.Control>
+        </Form.Group>
+        <br />
+        <Form.Group>
+          <Form.Control type="password" placeholder="Password"></Form.Control>
+        </Form.Group>
+        <br />
+        <Button>Log In</Button>
+      </Form>
+    </div>
   );
 };
 
