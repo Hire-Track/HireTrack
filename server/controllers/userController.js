@@ -23,8 +23,6 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Invalid credentials')
   }
-
-  res.json({ message: 'Login User' })
 })
 
 // @desc    Get user data
@@ -42,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!userName || !email || !password) {
     res.status(400)
-    throw new Error('Please add all fields')
+    throw new Error('Please add username, email, and password fields')
   }
 
   // check if user exits
