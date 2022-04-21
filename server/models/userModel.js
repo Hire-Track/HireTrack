@@ -1,6 +1,7 @@
 
 const mongoose = require("mongoose");
 
+// schema for skills array
 const skillSchema = mongoose.Schema(
     {
         skillName: {
@@ -9,9 +10,10 @@ const skillSchema = mongoose.Schema(
             unique: true,
         },
         skillLevel: {type: String},
-    }
+    }, {_id: false} // no id needed, use skillname as unique id
 )
 
+// schema for job contacts array
 const contactSchema = mongoose.Schema(
     {
         contactName: {
@@ -23,9 +25,10 @@ const contactSchema = mongoose.Schema(
         contactJobTitle: { type: String},
         contactPhone: {type: String},
         contactEmail: {type: String},
-    }
+    }, {_id: false} // no id needed, use contactName as unique id
 )
 
+// schema for jobs array
 const jobSchema = mongoose.Schema(
     {
         job: {type: Object},
@@ -60,6 +63,7 @@ const jobSchema = mongoose.Schema(
       
 )
 
+// schema for users
 const userSchema = mongoose.Schema(
     {
         account: {type: Object},

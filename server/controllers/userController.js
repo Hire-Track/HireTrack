@@ -39,7 +39,7 @@ const getMe = asyncHandler( async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler( async (req, res) => {
-    const { userName, email, password } = req.body
+    const { userName, email, password, gradDate, realName} = req.body
     
     if(!userName || !email || !password){
         res.status(400)
@@ -61,8 +61,12 @@ const registerUser = asyncHandler( async (req, res) => {
     const user =  await User.create({
         userName,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        gradDate, 
+        realName, 
     })
+
+
 
     if(user) {
         res.status(201).json({
@@ -77,7 +81,7 @@ const registerUser = asyncHandler( async (req, res) => {
     }
 })
 
-// Generate JWT
+// Generate JWT (used in login and register)
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d'})
 }
