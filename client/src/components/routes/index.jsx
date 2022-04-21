@@ -6,7 +6,10 @@ import JobDashboard from "../../pages/job-dashboard-page/JobDashboard";
 export const AllRoutes = () => {
   const routeComponents = [
     { path: "/", component: <HomePage /> },
-    {path: '/job-dashboard', component: <JobDashboard/ >},
+    { path: "/signup", component: <HomePage /> },
+    { path: "/job-dashboard", component: <JobDashboard /> },
+    { path: "/skills", component: <HomePage /> },
+    { path: "/contacts", component: <HomePage /> },
   ];
 
   // TODO

@@ -1,6 +1,6 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // dummy data
 const data = [
