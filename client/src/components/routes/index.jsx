@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router";
-import { HomePage } from "../../pages/home-page";
+import HomePage from "../../pages/home-page";
 import JobDashboard from "../../pages/job-dashboard-page/JobDashboard";
 
 export const AllRoutes = () => {

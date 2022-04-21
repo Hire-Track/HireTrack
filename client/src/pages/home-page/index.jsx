@@ -1,18 +1,20 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import styles from './styles.css';
+import "./styles.css";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <Container>
-      <div className={'row'}>
+      <div className="hero-row">
         <div>
-            <h1>HireTrack</h1>
+          <h1>HireTrack</h1>
         </div>
         <div>
-            <h2>Log In</h2>
+          <h2>Log In</h2>
         </div>
       </div>
     </Container>
   );
 };
+
+export default HomePage;

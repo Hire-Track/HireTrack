@@ -1,4 +1,4 @@
-.row {
+.hero-row {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
