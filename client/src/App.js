@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
+import JobDashboard from './JobDashboard';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        HireTrack
-      </header>
+      <Routes>
+        <Route path="/job-dashboard" element={<JobDashboard/ >} />
+      </Routes>
     </div>
   );
 }
