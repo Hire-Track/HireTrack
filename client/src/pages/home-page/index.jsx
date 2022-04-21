@@ -5,11 +5,10 @@ import "./styles.css";
 
 const HomePage = () => {
   return (
-    <Container>
       <div className="hero-row">
         <div>
           <h1 className="header-1">HireTrack</h1>
-          <div style={{ textAlign: "left" }} className='body-text'>
+          <div style={{ textAlign: "left" }} className="body-text">
             <li>Track your applications</li>
             <li>List your skills</li>
             <li>Keep your contacts</li>
@@ -18,10 +17,9 @@ const HomePage = () => {
         </div>
         <div>
           <h2>Log In</h2>
-          <LogInForm/>
+          <LogInForm />
         </div>
       </div>
-    </Container>
   );
 };
 

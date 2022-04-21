@@ -10,7 +10,7 @@ const LogInForm = () => {
       <Form.Group>
         <Form.Control type="password" placeholder="Password"></Form.Control>
       </Form.Group>
-    <Button>Log In</Button>
+      <Button>Log In</Button>
     </Form>
   );
 };
