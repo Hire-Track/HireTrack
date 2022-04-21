@@ -1,0 +1,6 @@
+.row {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    text-align: center;
+}
