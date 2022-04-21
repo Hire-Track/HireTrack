@@ -12,7 +12,6 @@ const HireTrackNavBar = () => {
             <NavDropdown title="Menu" id="basic-nav-dropdown">
               <NavDropdown.Item href="job-dashboard">Jobs</NavDropdown.Item>
               <NavDropdown.Item href="skills">Skills</NavDropdown.Item>
-              <NavDropdown.Item href="contacts">Contacts</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="account">Account</NavDropdown.Item>
             </NavDropdown>
