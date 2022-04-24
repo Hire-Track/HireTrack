@@ -1,5 +1,6 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import "./JobDashboard.css";
 // import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // dummy data
@@ -12,29 +13,41 @@ const data = [
 
 const columns = [{
   dataField: 'title',
-  text: 'Job Title'
+  text: 'Title',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'company',
-  text: 'Company'
+  text: 'Company',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'location',
-  text: 'Location'
+  text: 'Location',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'application',
-  text: 'Application'
+  text: 'Application',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'type',
-  text: 'Job Type'
+  text: 'Type',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'description',
-  text: 'Job Description'
+  text: 'Description',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }];
 
 function JobDashboard() {
 	return (
-		<div>
-			<h1>Job Dashboard</h1>
-			<BootstrapTable keyField='title' data={data} columns={columns} />
+		<div className='jobs-padding'>
+			<h2 className='jobs-header-2'>Jobs</h2>
+			<BootstrapTable bordered={false} keyField='title' data={data} columns={columns} />
 		</div>
 	)
 }
