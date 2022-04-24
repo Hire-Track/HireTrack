@@ -1,5 +1,6 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import "./JobDashboard.css";
 // import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -47,7 +48,12 @@ function JobDashboard() {
 	return (
 		<div className='jobs-padding'>
 			<h2 className='jobs-header-2'>Jobs</h2>
-			<BootstrapTable bordered={false} keyField='title' data={data} columns={columns} />
+			<BootstrapTable 
+        bordered={ false } 
+        cellEdit={ cellEditFactory({ mode:'click' }) }
+        keyField='id' 
+        data={ data } 
+        columns={ columns } />
 		</div>
 	)
 }
