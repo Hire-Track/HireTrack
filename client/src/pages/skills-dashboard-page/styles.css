@@ -1,0 +1,15 @@
+.skills-card {
+  box-shadow: 5px 5px rgb(52, 117, 113, 0.8);
+  border: 1px solid #224e4b;
+  margin: 0.5rem;
+}
+
+.skills-card:hover {
+  box-shadow: none;
+  background-color: #eef9ea;
+  cursor: pointer; 
+}
+
+.skills-row {
+  justify-content: space-evenly;
+}

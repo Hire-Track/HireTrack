@@ -36,3 +36,7 @@ body {
 .link {
   color: #b8e28a;
 }
+
+.main-content {
+  padding: 3rem 2.5rem 3rem 2.5rem;
+}
