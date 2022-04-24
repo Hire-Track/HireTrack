@@ -1,9 +1,10 @@
 import React from "react";
+import "./styles.css";
 
-const PageHeader = ({text}) => {
+const PageHeader = ({ text }) => {
   return (
     <div className="text-center">
-      <h1 className="header-2">{text}</h1>
+      <h1 className="page-header">{text}</h1>
     </div>
   );
 };

@@ -7,7 +7,7 @@
 .skills-card:hover {
   box-shadow: none;
   background-color: #eef9ea;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .skills-row {
