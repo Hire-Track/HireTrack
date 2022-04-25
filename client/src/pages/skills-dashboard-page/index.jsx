@@ -3,21 +3,27 @@ import Row from "react-bootstrap/row";
 import PageHeader from "../../components/header";
 import { SkillCard, SkillListItem } from "./components/skillCard";
 import "./styles.css";
+import { mockSkills } from "./mockdata";
 
 const SkillsDashboard = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });
+  const [parsedSkills, setParsedSkills] = useState([]);
 
-  // TODO API to fetch all Skills
-  // Temp dummy data:
-  const parsedSkills = [
-    { skillName: "Python", skillLevel: "Advanced", jobs: 5 },
-    { skillName: "JavaScript", skillLevel: "Intermediate", jobs: 2 },
-    { skillName: "C", skillLevel: "Beginner", jobs: 2 },
-    { skillName: "Rust", skillLevel: "Intermediate", jobs: 3 },
-    { skillName: "ReactJS", skillLevel: "Intermediate", jobs: 5 },
-    { skillName: "Express", skillLevel: "Beginner", jobs: 1 },
-    { skillName: "C+", skillLevel: "Beginner", jobs: 1 },
-  ];
+  const fetchData = () => {
+    // TODO API to fetch all Skills
+    // Temp dummy data:
+    return mockSkills;
+  };
+
+  const parseData = (data) => {
+    // TODO
+    return data;
+  };
+
+  useEffect(() => {
+    let data = fetchData();
+    setParsedSkills(parseData(data));
+  }, []);
 
   useEffect(() => {
     // Sort by most in demand (jobs count)

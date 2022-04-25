@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import { render } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/HireTrack/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders app component", () => {
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+  expect(document.getElementsByClassName("App")).toBeTruthy();
 });
