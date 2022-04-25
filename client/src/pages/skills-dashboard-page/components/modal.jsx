@@ -20,6 +20,10 @@ const SkillsModal = ({ show, handleClose, name, level }) => {
     setShowJobs(true);
   }, [show]);
 
+  const handleCancel = () => {
+    setShowJobs(true);
+  };
+
   return (
     <Modal show={show} onHide={handleClose} size="lg" scrollable={true}>
       <Modal.Header closeButton>
@@ -30,7 +34,7 @@ const SkillsModal = ({ show, handleClose, name, level }) => {
       </Modal.Header>
       <Modal.Body>
         {showJobs && <JobsList />}
-        {!showJobs && <EditSkillForm />}
+        {!showJobs && <EditSkillForm handleCancel={handleCancel} />}
       </Modal.Body>
       {showJobs && (
         <Modal.Footer>

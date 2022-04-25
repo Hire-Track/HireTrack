@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Row from "react-bootstrap/row";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import PageHeader from "../../components/header";
 import { SkillCard, SkillListItem } from "./components/skillCard";
 import SkillsModal from "./components/modal";
@@ -7,6 +9,25 @@ import "./styles.css";
 import { mockSkills } from "./mockdata";
 
 const SkillsDashboard = () => {
+  const AddSkillBtn = () => {
+    return (
+      <Link to="/add-skill">
+        <Button>Add Skill</Button>
+      </Link>
+    );
+  };
+
+  return (
+    <div className="main-content">
+      <PageHeader text="Skills" button={<AddSkillBtn />} />
+      <SkillsRow />
+    </div>
+  );
+};
+
+export default SkillsDashboard;
+
+const SkillsRow = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });
   const [parsedSkills, setParsedSkills] = useState([]);
 
@@ -23,9 +44,10 @@ const SkillsDashboard = () => {
   useEffect(() => {
     let data = fetchData();
     setParsedSkills(parseData(data));
-  }, []);
+    sortSkills();
+  });
 
-  useEffect(() => {
+  const sortSkills = () => {
     // Sort by most in demand (jobs count)
     parsedSkills.sort(function (a, b) {
       return b.jobs - a.jobs;
@@ -54,7 +76,7 @@ const SkillsDashboard = () => {
           />
         )),
     });
-  }, [skills]);
+  };
 
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ name: "", level: "" });
@@ -66,10 +88,8 @@ const SkillsDashboard = () => {
   const handleClose = () => {
     setShowModal(false);
   };
-
   return (
-    <div className="main-content">
-      <PageHeader text="Skills" />
+    <>
       <Row className="skills-row">{skills.topSkills}</Row>
       <p />
       <Row>{skills.remainingSkills}</Row>
@@ -79,8 +99,6 @@ const SkillsDashboard = () => {
         name={modalData.name}
         level={modalData.level}
       />
-    </div>
+    </>
   );
 };
-
-export default SkillsDashboard;

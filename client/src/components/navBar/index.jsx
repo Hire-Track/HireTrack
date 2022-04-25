@@ -15,7 +15,7 @@ const HireTrackNavBar = () => {
               <NavDropdown.Item href="/job-dashboard">
                 Jobs Dashboard
               </NavDropdown.Item>
-              <NavDropdown.Item href="/job-dashboard">
+              <NavDropdown.Item href="/add-job">
                 Add a Job
               </NavDropdown.Item>
             </NavDropdown>
@@ -23,7 +23,7 @@ const HireTrackNavBar = () => {
               <NavDropdown.Item href="/skills">
                 Skills Dashboard
               </NavDropdown.Item>
-              <NavDropdown.Item href="/skills/add">Add a Skill</NavDropdown.Item>
+              <NavDropdown.Item href="/add-skill">Add a Skill</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="/account">Account</Nav.Link>
           </Nav>

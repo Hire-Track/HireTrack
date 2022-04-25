@@ -2,8 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router";
 import HomePage from "../../pages/home-page";
 import JobDashboard from "../../pages/job-dashboard-page/JobDashboard";
-import SkillsDashboard from "../../pages/skills-dashboard-page";
 import AddJob from "../../pages/job-dashboard-page/addJob";
+import SkillsDashboard from "../../pages/skills-dashboard-page";
+import AddSkillPage from "../../pages/skills-dashboard-page/add-skill-page";
 
 const AllRoutes = () => {
   const routeComponents = [
@@ -12,7 +13,7 @@ const AllRoutes = () => {
     { path: "/job-dashboard", component: <JobDashboard /> },
     { path: "/add-job", component: <AddJob /> },
     { path: "/skills", component: <SkillsDashboard /> },
-    { path: "/add-skill", component: <SkillsDashboard /> },
+    { path: "/add-skill", component: <AddSkillPage /> },
     { path: "/account", component: <HomePage /> },
   ];
 
