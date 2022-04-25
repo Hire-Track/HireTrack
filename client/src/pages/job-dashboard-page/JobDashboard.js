@@ -1,5 +1,9 @@
 import React from 'react';
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import "./JobDashboard.css";
 // import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 // dummy data
@@ -12,29 +16,51 @@ const data = [
 
 const columns = [{
   dataField: 'title',
-  text: 'Job Title'
+  text: 'Title',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'company',
-  text: 'Company'
+  text: 'Company',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'location',
-  text: 'Location'
+  text: 'Location',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'application',
-  text: 'Application'
+  text: 'Application',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'type',
-  text: 'Job Type'
+  text: 'Type',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   dataField: 'description',
-  text: 'Job Description'
+  text: 'Description',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }];
 
 function JobDashboard() {
 	return (
-		<div>
-			<h1>Job Dashboard</h1>
-			<BootstrapTable keyField='title' data={data} columns={columns} />
+		<div className='jobs-padding'>
+      <div>
+        <h2 className='jobs-header-2'>Jobs</h2>
+        <Link to='/add-job'>
+          <Button className='add-job-button'>Add new job</Button>
+        </Link>
+      </div>   
+			<BootstrapTable 
+        bordered={ false } 
+        cellEdit={ cellEditFactory({ mode:'click' }) }
+        keyField='id' 
+        data={ data } 
+        columns={ columns } />
 		</div>
 	)
 }
