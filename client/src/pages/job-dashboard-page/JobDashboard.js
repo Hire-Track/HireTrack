@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import "./JobDashboard.css";
@@ -47,7 +49,12 @@ const columns = [{
 function JobDashboard() {
 	return (
 		<div className='jobs-padding'>
-			<h2 className='jobs-header-2'>Jobs</h2>
+      <div>
+        <h2 className='jobs-header-2'>Jobs</h2>
+        <Link to='/add-job'>
+          <Button className='add-job-button'>Add new job</Button>
+        </Link>
+      </div>   
 			<BootstrapTable 
         bordered={ false } 
         cellEdit={ cellEditFactory({ mode:'click' }) }

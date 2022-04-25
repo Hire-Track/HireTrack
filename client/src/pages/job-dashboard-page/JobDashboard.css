@@ -8,5 +8,13 @@
 }
 
 .jobs-padding {
-	padding: 24px;
+	padding: 3% 20% 0% 20%;
+}
+
+.add-job-button {
+  float: right;
+}
+
+.add-job-padding {
+  padding: 3% 25% 0% 25%;
 }
