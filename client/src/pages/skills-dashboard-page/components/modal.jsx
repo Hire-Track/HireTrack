@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import EditSkillForm from "./edit-skills-form";
 import "../../../components/app/App.css";
 import "../styles.css";
 
 const SkillsModal = ({ show, handleClose, name, level }) => {
+  const [showJobs, setShowJobs] = useState(true);
+  const JobsList = () => {
+    return (
+      <>
+        Jobs That Require This Skill:
+        <br />
+      </>
+    );
+  };
+
+  useEffect(() => {
+    setShowJobs(true);
+  }, [show]);
+
   return (
     <Modal show={show} onHide={handleClose} size="lg" scrollable={true}>
       <Modal.Header closeButton>
@@ -14,12 +29,20 @@ const SkillsModal = ({ show, handleClose, name, level }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Jobs That Require This Skill:
-        <br />
+        {showJobs && <JobsList />}
+        {!showJobs && <EditSkillForm />}
       </Modal.Body>
-      <Modal.Footer>
-        <Button>Edit Skill</Button>
-      </Modal.Footer>
+      {showJobs && (
+        <Modal.Footer>
+          <Button
+            onClick={() => {
+              setShowJobs(false);
+            }}
+          >
+            Edit Skill
+          </Button>
+        </Modal.Footer>
+      )}
     </Modal>
   );
 };
