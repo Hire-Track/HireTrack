@@ -81,12 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/me
 // @access  Private
 const updateUser = asyncHandler(async (req, res) => {
-  const { gradDate, realName } = req.body
-
-  // find user and update
-
-  req.user.realName = realName
-  req.user.gradDate = gradDate
+  Object.assign(req.user, req.body)
   await req.user.save(function (err, results) {
     if (err) {
       res.status(400)
@@ -97,38 +92,6 @@ const updateUser = asyncHandler(async (req, res) => {
       console.log('Updated User: ', results.email, results.userName)
     }
   })
-
-  //   await User.findByIdAndUpdate(req.user._id, {
-  //     realName: realName,
-  //     gradDate: gradDate
-  //   }, function (err, results) {
-  //     if (err) {
-  //       res.status(400)
-  //       console.log(err)
-  //       throw new Error('Invalid Update')
-  //     } else {
-  //       res.status(201).json(results)
-  //       console.log('Updated User: ', results)
-  //     }
-  //   }
-  //   )
-  // })
-
-//   if (user) {
-//     user.update({
-//       gradDate: gradDate,
-//       realName: realName
-//     })
-//     res.status(201).json({
-//       _id: user.id,
-//       userName: user.userName,
-//       gradDate,
-//       realName
-//     })
-//   } else {
-//     res.status(400)
-//     throw new Error('Invalid user data')
-//   }
 })
 
 // Generate JWT (used in login and register)
