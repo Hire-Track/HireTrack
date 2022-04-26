@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 const LogInForm = () => {
   return (
     <div>
-      <h3 className="header-2 bottom-border">Log In</h3>
+      <h3 className="header-2">Log In</h3>
       <Form>
         <Form.Group>
           <Form.Control type="email" placeholder="Email Address"></Form.Control>
