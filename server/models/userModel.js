@@ -8,7 +8,10 @@ const skillSchema = mongoose.Schema(
       required: [true, 'please enter a skill name'],
       unique: true
     },
-    skillLevel: { type: String }
+    skillLevel: {
+      type: String,
+      enum: ['APPLIED', 'WAITING', 'INTERVIEW SCHEDULED', 'INTERVIEW DONE']
+    }
   },
   { _id: false } // no id needed, use skillname as unique id
 )
