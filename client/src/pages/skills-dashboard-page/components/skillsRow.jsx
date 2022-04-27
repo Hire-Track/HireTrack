@@ -32,9 +32,8 @@ const SkillsRow = () => {
         topSkills: parsedSkills
           .slice(0, 3)
           .map(({ skillName, skillLevel, jobs }, index) => (
-            <Col>
+            <Col key={index}>
               <SkillCard
-                key={index}
                 name={skillName}
                 level={skillLevel}
                 jobCount={jobs}
@@ -50,6 +49,7 @@ const SkillsRow = () => {
               name={skillName}
               level={skillLevel}
               jobCount={jobs}
+              handleOpen={handleOpen}
             />
           )),
       });

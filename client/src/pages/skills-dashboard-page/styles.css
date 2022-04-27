@@ -10,6 +10,11 @@
   cursor: pointer;
 }
 
+.skills-item:hover {
+  color: #36b276;
+  cursor: pointer;
+}
+
 .button-row {
   margin-top: 1rem;
   display: flex;
