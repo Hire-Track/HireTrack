@@ -98,8 +98,7 @@ const CreateAccountPage = () => {
             }}
           ></Form.Control>
         </Form.Group>
-        <Form.Label style={{ display: "flex" }}>
-        </Form.Label>
+        <Form.Label style={{ display: "flex" }}></Form.Label>
         <PasswordInput
           isPwdNew={isNew.password}
           isValid={isPwdValid}

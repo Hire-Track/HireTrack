@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import "../../styles.css";
+import "../styles.css";
 
 const EditSkillForm = ({ handleCancel }) => {
   return (
