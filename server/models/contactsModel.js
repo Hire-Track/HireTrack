@@ -9,6 +9,11 @@ const contactSchema = mongoose.Schema(
       required: true,
       ref: 'Job'
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
     contactName: {
       type: String,
       required: [true, 'please add a name']

@@ -10,7 +10,7 @@ const getSkills = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create skill
-// @route   POST /api/skils
+// @route   POST /api/skills
 // @access  Private
 const setSkill = asyncHandler(async (req, res) => {
   if (!req.body.skillName) {
@@ -61,8 +61,8 @@ const updateSkill = asyncHandler(async (req, res) => {
   res.status(200).json(updatedSkill)
 })
 
-// @desc    Delete goal
-// @route   DELETE /api/goals/:id
+// @desc    Delete skill
+// @route   DELETE /api/skills/:id
 // @access  Private
 const deleteSkill = asyncHandler(async (req, res) => {
   const skill = await Skill.findById(req.params.id)
