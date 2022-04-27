@@ -98,9 +98,15 @@ const CreateAccountPage = () => {
             }}
           ></Form.Control>
         </Form.Group>
-        <p />
-        {!isNew.password && !accountForm.password && <ErrorText />}
-        <PasswordInput setIsValid={setIsPwdValid} setPassword={setPassword} />
+        <Form.Label style={{ display: "flex" }}>
+        </Form.Label>
+        <PasswordInput
+          isPwdNew={isNew.password}
+          isValid={isPwdValid}
+          setIsValid={setIsPwdValid}
+          setPassword={setPassword}
+          requiredText={<ErrorText />}
+        />
         <p />
         <Form.Label>Optional:</Form.Label>
         <Form.Group>

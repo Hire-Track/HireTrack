@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import "../styles.css";
 
-const PasswordInput = ({ setIsValid, setPassword }) => {
+const PasswordInput = ({
+  isPwdNew,
+  isValid,
+  setIsValid,
+  setPassword,
+  requiredText,
+}) => {
   const [firstPwd, setFirstPwd] = useState("");
   const [secondPwd, setSecondPwd] = useState("");
   const [showError, setShowError] = useState(false);
@@ -34,19 +40,22 @@ const PasswordInput = ({ setIsValid, setPassword }) => {
   };
 
   const PasswordErrorText = () => (
-    <div style={{color: 'red', marginLeft: 'auto'}}>Passwords must match</div>
+    <div style={{ color: "red", marginLeft: "auto" }}>Passwords must match</div>
   );
 
   return (
     <>
       <Form.Group>
-        <Form.Label>Choose a password:</Form.Label>
+        <Form.Label style={{ display: "flex" }}>
+          Choose a password:
+          {!isPwdNew && !isValid && requiredText}
+        </Form.Label>
         <Form.Control type="password" onChange={onPwdChangeOne}></Form.Control>
       </Form.Group>
       <Form.Group>
-      <Form.Label style={{display: "flex"}}>
+        <Form.Label style={{ display: "flex" }}>
           Enter password again:
-          {showError && !isNew.one && !isNew.two && <PasswordErrorText />}
+          {(showError && !isNew.one && !isNew.two && <PasswordErrorText />) || (!isPwdNew && !isValid && requiredText)}
         </Form.Label>
         <Form.Control type="password" onChange={onPwdChangeTwo}></Form.Control>
       </Form.Group>
