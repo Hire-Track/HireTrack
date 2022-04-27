@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }))
 // serve user api to client side
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/jobs', require('./routes/jobRoutes'))
+app.use('/api/skills', require('./routes/skillRoutes'))
 
 // use custom errorhandler middleware (see middleware folder)
 app.use(errorHandler)

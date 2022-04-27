@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler')
-const User = require('../models/userModel')
 const Job = require('../models/jobsModel')
 
 // @desc    Get Jobs
@@ -11,7 +10,7 @@ const getJobs = asyncHandler(async (req, res) => {
 })
 
 // @desc    Create job
-// @route   POST /api/job
+// @route   POST /api/jobs
 // @access  Private
 const setJob = asyncHandler(async (req, res) => {
   if (!req.body.jobTitle || !req.body.jobCompany || !req.body.jobType) {
@@ -42,65 +41,67 @@ const setJob = asyncHandler(async (req, res) => {
   res.status(200).json(job)
 })
 
-// // @desc    Update goal
-// // @route   PUT /api/goals/:id
-// // @access  Private
-// const updateGoal = asyncHandler(async (req, res) => {
-//   const goal = await Goal.findById(req.params.id)
+// @desc    Update job
+// @route   PUT /api/jobs/:id
+// @access  Private
+const updateJob = asyncHandler(async (req, res) => {
+  const job = await Job.findById(req.params.id)
 
-//   if (!goal) {
-//     res.status(400)
-//     throw new Error('Goal not found')
-//   }
+  if (!job) {
+    res.status(400)
+    throw new Error('Job not found')
+  }
 
-//   // Check for user
-//   if (!req.user) {
-//     res.status(401)
-//     throw new Error('User not found')
-//   }
+  // Check for user
+  if (!req.user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
 
-//   // Make sure the logged in user matches the goal user
-//   if (goal.user.toString() !== req.user.id) {
-//     res.status(401)
-//     throw new Error('User not authorized')
-//   }
+  // Make sure the logged in user matches the goal user
+  if (job.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('User not authorized')
+  }
 
-//   const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
-//     new: true
-//   })
+  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body)
 
-//   res.status(200).json(updatedGoal)
-// })
+  // this will return 200 status and job detail PRE update
+  // use get method to get updated job list for user
+  res.status(200).json(updatedJob)
+})
 
-// // @desc    Delete goal
-// // @route   DELETE /api/goals/:id
-// // @access  Private
-// const deleteGoal = asyncHandler(async (req, res) => {
-//   const goal = await Goal.findById(req.params.id)
+// @desc    Delete job
+// @route   DELETE /api/jobs/:id
+// @access  Private
+const deleteJob = asyncHandler(async (req, res) => {
+  const job = await Job.findById(req.params.id)
 
-//   if (!goal) {
-//     res.status(400)
-//     throw new Error('Goal not found')
-//   }
+  if (!job) {
+    res.status(400)
+    throw new Error('Job not found')
+  }
 
-//   // Check for user
-//   if (!req.user) {
-//     res.status(401)
-//     throw new Error('User not found')
-//   }
+  // Check for user
+  if (!req.user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
 
-//   // Make sure the logged in user matches the goal user
-//   if (goal.user.toString() !== req.user.id) {
-//     res.status(401)
-//     throw new Error('User not authorized')
-//   }
+  // Make sure the logged in user matches the goal user
+  if (job.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('User not authorized')
+  }
 
-//   await goal.remove()
+  await job.remove()
 
-//   res.status(200).json({ id: req.params.id })
-// })
+  res.status(200).json({ id: req.params.id })
+})
 
 module.exports = {
   getJobs,
-  setJob
+  setJob,
+  updateJob,
+  deleteJob
 }

@@ -15,7 +15,7 @@ const skillSchema = mongoose.Schema(
     },
     skillLevel: {
       type: String,
-      enum: ['APPLIED', 'WAITING', 'INTERVIEW SCHEDULED', 'INTERVIEW DONE']
+      enum: ['BEGINNER', 'INTERMEDIATE', 'ADVANCED']
     }
   }
 )
