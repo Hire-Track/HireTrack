@@ -1,4 +1,4 @@
-# H1 **API Dev Documentation**
+#H1 **API Dev Documentation**
 ----
   Information on how to start and use backend API
 
@@ -31,6 +31,6 @@
   - Run server then access `http://localhost:5000/api/docs`
   - You should be able to submit requests through Swagger but sometimes the execute fails (known bug), use postman instead to test if this is the case
   
-* **Sample Call:**
+* **Video Doc**
 
-  <_Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable._> 
+[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/PgFF2U4A_-s/0.jpg)](https://www.youtube.com/watch?v=PgFF2U4A_-s)

@@ -83,7 +83,7 @@ const { protect } = require('../middleware/authMiddleware.js')
  */
 /**
  * @swagger
- * /Contacts:
+ * /contacts:
  *   post:
  *     summary: Create a user contact under a specific job - Need Auth
  *     tags: [Contacts]
