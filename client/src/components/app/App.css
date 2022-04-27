@@ -15,6 +15,10 @@ body {
   color: #5dbb79;
 }
 
+.header-2-border {
+  border-bottom: 2px solid #5dbb79;
+}
+
 .header-3 {
   color: #347571;
 }

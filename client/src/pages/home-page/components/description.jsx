@@ -5,7 +5,8 @@ const HireTrackDescription = () => {
   return (
     <div>
       <h1 className="header-1">
-        <StackedLineChartIcon /> &thinsp;
+        <StackedLineChartIcon />{" "}
+        <span style={{ fontSize: "14px" }}>&thinsp;</span>
         HireTrack
       </h1>
       <div style={{ textAlign: "left" }} className="accent-text-2">

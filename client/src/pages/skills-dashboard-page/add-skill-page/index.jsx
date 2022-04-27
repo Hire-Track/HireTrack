@@ -6,7 +6,7 @@ import "../styles.css";
 const AddSkillPage = () => {
   return (
     <div className="form-content">
-      <h3 className="header-2 add-skill-header"><strong>Add Skill</strong></h3>
+      <h3 className="header-2 header-2-border"><strong>Add Skill</strong></h3>
       <Form>
         <Form.Control placeholder="Skill Name"></Form.Control>
         <p />

@@ -1,5 +1,9 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
 
 const LogInForm = () => {
   return (
@@ -14,7 +18,14 @@ const LogInForm = () => {
           <Form.Control type="password" placeholder="Password"></Form.Control>
         </Form.Group>
         <br />
-        <Button>Log In</Button>
+        <Row xs={1} md={2} className={"justify-content-center align-items-center"}>
+          <Col>
+            <Button type="submit">Log In</Button>
+          </Col>
+          <Col>
+            <Link to="/signup">Create Account</Link>
+          </Col>
+        </Row>
       </Form>
     </div>
   );

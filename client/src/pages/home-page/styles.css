@@ -1,6 +1,4 @@
 .hero-row {
-    display: flex;
-    justify-content: space-evenly;
     align-items: flex-start;
     text-align: center;
     background-color: #EEF9EA;

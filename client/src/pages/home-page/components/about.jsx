@@ -1,8 +1,9 @@
 import React from "react";
+import Row from "react-bootstrap/Row";
 
 const About = () => {
   return (
-    <div className="about">
+    <Row className="about">
       <h3>About</h3>
       <br />
       <div className="two-col">
@@ -19,7 +20,7 @@ const About = () => {
           <li>More Words</li>
         </div>
       </div>
-    </div>
+    </Row>
   );
 };
 
