@@ -3,8 +3,8 @@ import "./styles.css";
 
 const PageHeader = ({ text, button }) => {
   return (
-    <div className={"text-center page-header"}>
-      <h1 className="header-2" style={{marginLeft: 'auto'}}>{text}</h1>
+    <div className={"text-left page-header"}>
+      <h1 className="header-2">{text}</h1>
       {button && <span style={{marginLeft: 'auto'}}>{button}</span>}
     </div>
   );
