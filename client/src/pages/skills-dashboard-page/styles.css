@@ -10,16 +10,14 @@
   cursor: pointer;
 }
 
-.skills-row {
-  justify-content: space-evenly;
+.skills-item:hover {
+  color: #36b276;
+  cursor: pointer;
 }
 
 .button-row {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-end;
-}
-
-.add-skill-header {
-  border-bottom: 2px solid #5dbb79;
+  justify-content: flex-start;
+  align-items: flex-end;
 }

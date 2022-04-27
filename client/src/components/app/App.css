@@ -15,6 +15,10 @@ body {
   color: #5dbb79;
 }
 
+.header-2-border {
+  border-bottom: 2px solid #5dbb79;
+}
+
 .header-3 {
   color: #347571;
 }
@@ -35,10 +39,26 @@ body {
   color: #b8e28a;
 }
 
-.main-content {
-  padding: 3rem 2.5rem 3rem 2.5rem;
+.main-content,
+.form-content {
+  padding: 2rem;
 }
 
-.form-content {
-  padding: 3rem 20rem 3rem 20rem;
+@media only screen and (min-width: 576px) {
+  .main-content {
+    padding: 5rem;
+  }
+  .form-content {
+    padding: 3rem 8rem 3rem 8rem;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .main-content {
+    padding: 3rem 15rem 3rem 15rem;
+  }
+
+  .form-content {
+    padding: 3rem 20rem 3rem 20rem;
+  }
 }

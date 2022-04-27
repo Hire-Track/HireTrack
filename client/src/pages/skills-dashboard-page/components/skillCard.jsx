@@ -1,10 +1,11 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import "../styles.css";
 
 export const SkillCard = ({ name, level, jobCount, handleOpen }) => {
   return (
     <Card
-      className={"skills-card col-10 col-md-4 col-lg-2 offset-lg-0"}
+      className={"skills-card"}
       onClick={() => {
         handleOpen(name, level);
       }}
@@ -18,9 +19,9 @@ export const SkillCard = ({ name, level, jobCount, handleOpen }) => {
   );
 };
 
-export const SkillListItem = ({ name, level, jobCount }) => {
+export const SkillListItem = ({ name, level, jobCount, handleOpen }) => {
   return (
-    <li>
+    <li className="skills-item" onClick={()=>{handleOpen(name, level)}}>
       <strong>{name}</strong> {level} – {jobCount}
     </li>
   );

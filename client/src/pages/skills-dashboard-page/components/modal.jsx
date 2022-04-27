@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import EditSkillForm from "./edit-skills-form";
+import EditSkillForm from "../edit-skills-form";
 import "../../../components/app/App.css";
 import "../styles.css";
 
