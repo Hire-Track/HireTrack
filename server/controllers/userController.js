@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 
-// @desc    Authenticate new user
+// @desc    Authenticate a user
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
@@ -50,7 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // check if user exits
   const userExists = await User.findOne({ email })
   if (userExists) {
-    res.status(400)
+    res.status(409)
     throw new Error('User already Exits')
   }
 
