@@ -1,4 +1,5 @@
-/* eslint-disable object-shorthand */
+/* CONTROL ROUTES FOR USERS */
+
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
@@ -10,15 +11,16 @@ const User = require('../models/userModel')
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
-  // check for user email
+  // check for user email in db
   const user = await User.findOne({ email })
 
+  // check credentials and decrypt stored pass
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(201).json({
       _id: user.id,
       userName: user.userName,
       email: user.email,
-      token: generateToken(user.id)
+      token: generateToken(user.id) // response token to be stored into local storage
     })
   } else {
     res.status(400)
@@ -26,9 +28,9 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Get user data
+// @desc    Get user data for an authorized user
 // @route   GET /api/users/me
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
@@ -39,6 +41,7 @@ const getMe = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { userName, email, password, gradDate, realName } = req.body
 
+  // check for required fields
   if (!userName || !email || !password) {
     res.status(400)
     throw new Error('Please add username, email, and password fields')
@@ -69,7 +72,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       userName: user.userName,
       email: user.email,
-      token: generateToken(user.id)
+      token: generateToken(user.id) // response token to be stored into local storage
     })
   } else {
     res.status(400)
@@ -79,7 +82,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 // @desc    Update user
 // @route   PUT /api/users/me
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const updateUser = asyncHandler(async (req, res) => {
   Object.assign(req.user, req.body)
   await req.user.save(function (err, results) {

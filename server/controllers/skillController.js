@@ -1,18 +1,21 @@
+/* CONTROL ROUTES FOR SKILLS */
+
 const asyncHandler = require('express-async-handler')
 const Skill = require('../models/skillsModel')
 
-// @desc    Get Skills
+// @desc    Get Skills for an authorized user
 // @route   GET /api/skills
-// @access  Private
+// @access  Private req.user retreived from auth middleware
 const getSkills = asyncHandler(async (req, res) => {
   const skills = await Skill.find({ user: req.user.id })
   res.status(200).json(skills)
 })
 
-// @desc    Create skill
+// @desc    Create skill for an authorized user
 // @route   POST /api/skills
-// @access  Private
+// @access  Private req.user retreived from auth middleware
 const setSkill = asyncHandler(async (req, res) => {
+  // validate required field is in body
   if (!req.body.skillName) {
     res.status(400)
     throw new Error('Please add a skillName. This is a required field')
@@ -27,16 +30,17 @@ const setSkill = asyncHandler(async (req, res) => {
     skillLevel: req.body.skillLevel
 
   })
-
+  // respond with 200 and skill info
   res.status(200).json(skill)
 })
 
-// @desc    Update skill
+// @desc    Update skill for an authorized user given skill id param
 // @route   PUT /api/skills/:id
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const updateSkill = asyncHandler(async (req, res) => {
   const skill = await Skill.findById(req.params.id)
 
+  // if skill not found - invalid id
   if (!skill) {
     res.status(400)
     throw new Error('Skill not found')
@@ -61,9 +65,9 @@ const updateSkill = asyncHandler(async (req, res) => {
   res.status(200).json(updatedSkill)
 })
 
-// @desc    Delete skill
+// @desc    Delete skill for an authorized user given skill id param
 // @route   DELETE /api/skills/:id
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const deleteSkill = asyncHandler(async (req, res) => {
   const skill = await Skill.findById(req.params.id)
 

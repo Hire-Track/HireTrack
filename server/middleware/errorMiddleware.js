@@ -1,3 +1,5 @@
+/* ERROR MIDDLEWARE TO OVERRIDE EXPRESS MIDDLEWARE - GIVING MORE STACK INFO IN DEV */
+
 const errorHandler = (err, req, res, next) => {
   // get status code of error, else 500 (server error)
   const statusCode = res.statusCode ? res.statusCode : 500

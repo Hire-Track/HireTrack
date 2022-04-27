@@ -1,18 +1,21 @@
+/* CONTROL ROUTES FOR JOBS */
+
 const asyncHandler = require('express-async-handler')
 const Job = require('../models/jobsModel')
 
-// @desc    Get Jobs
+// @desc    Get Jobs for an authorized user
 // @route   GET /api/jobs
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const getJobs = asyncHandler(async (req, res) => {
   const jobs = await Job.find({ user: req.user.id })
   res.status(200).json(jobs)
 })
 
-// @desc    Create job
+// @desc    Create job for an authorized user
 // @route   POST /api/jobs
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const setJob = asyncHandler(async (req, res) => {
+  // validate required fields are in body
   if (!req.body.jobTitle || !req.body.jobCompany || !req.body.jobType) {
     res.status(400)
     throw new Error('Please add a jobTitle, jobCompany, and jobType. These are required fields')
@@ -37,16 +40,17 @@ const setJob = asyncHandler(async (req, res) => {
     nextSteps: req.body.nextSteps,
     decision: req.body.decision
   })
-
+  // respond with 200 and job info
   res.status(200).json(job)
 })
 
-// @desc    Update job
+// @desc    Update job for an authorized user given job id param
 // @route   PUT /api/jobs/:id
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const updateJob = asyncHandler(async (req, res) => {
   const job = await Job.findById(req.params.id)
 
+  // if job not found - invalid id
   if (!job) {
     res.status(400)
     throw new Error('Job not found')
@@ -58,7 +62,7 @@ const updateJob = asyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 
-  // Make sure the logged in user matches the goal user
+  // Make sure the logged in user matches the job user
   if (job.user.toString() !== req.user.id) {
     res.status(401)
     throw new Error('User not authorized')
@@ -71,12 +75,13 @@ const updateJob = asyncHandler(async (req, res) => {
   res.status(200).json(updatedJob)
 })
 
-// @desc    Delete job
+// @desc    Delete job for an authorized user given job id param
 // @route   DELETE /api/jobs/:id
-// @access  Private
+// @access  Private - req.user retreived from auth middleware
 const deleteJob = asyncHandler(async (req, res) => {
   const job = await Job.findById(req.params.id)
 
+  // if job not found - invalid id
   if (!job) {
     res.status(400)
     throw new Error('Job not found')
@@ -96,6 +101,7 @@ const deleteJob = asyncHandler(async (req, res) => {
 
   await job.remove()
 
+  // respond with 200 and job id
   res.status(200).json({ id: req.params.id })
 })
 
