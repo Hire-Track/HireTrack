@@ -15,19 +15,18 @@ const PasswordInput = ({
   const [isNew, setIsNew] = useState({ one: true, two: true });
 
   useEffect(() => {
+    const checkPwdsMatch = () => {
+      if (firstPwd === secondPwd && firstPwd.length > 0) {
+        setShowError(false);
+        setPassword(firstPwd);
+        setIsValid(true);
+      } else {
+        setShowError(true);
+        setIsValid(false);
+      }
+    };
     checkPwdsMatch();
-  }, [firstPwd, secondPwd]);
-
-  const checkPwdsMatch = () => {
-    if (firstPwd === secondPwd && firstPwd.length > 0) {
-      setShowError(false);
-      setPassword(firstPwd);
-      setIsValid(true);
-    } else {
-      setShowError(true);
-      setIsValid(false);
-    }
-  };
+  }, [firstPwd, secondPwd, setIsValid, setPassword]);
 
   const onPwdChangeOne = (e) => {
     setIsNew({ ...isNew, one: false });
@@ -55,7 +54,8 @@ const PasswordInput = ({
       <Form.Group>
         <Form.Label style={{ display: "flex" }}>
           Enter password again:
-          {(showError && !isNew.one && !isNew.two && <PasswordErrorText />) || (!isPwdNew && !isValid && requiredText)}
+          {(showError && !isNew.one && !isNew.two && <PasswordErrorText />) ||
+            (!isPwdNew && !isValid && requiredText)}
         </Form.Label>
         <Form.Control type="password" onChange={onPwdChangeTwo}></Form.Control>
       </Form.Group>

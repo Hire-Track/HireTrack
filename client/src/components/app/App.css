@@ -39,19 +39,22 @@ body {
   color: #b8e28a;
 }
 
-.main-content, .form-content {
+.main-content,
+.form-content {
   padding: 2rem;
 }
 
 @media only screen and (min-width: 576px) {
-  .main-content{
+  .main-content {
     padding: 5rem;
   }
-
+  .form-content {
+    padding: 3rem 8rem 3rem 8rem;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
-  .main-content{
+  .main-content {
     padding: 3rem 15rem 3rem 15rem;
   }
 

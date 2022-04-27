@@ -26,19 +26,15 @@ const CreateAccountPage = () => {
     if (password.length > 0) {
       setAccountForm({ ...accountForm, password: password });
     }
-  }, [password]);
+  }, [password, accountForm]);
 
   useEffect(() => {
-    validate();
-  }, [accountForm.email]);
-
-  const validate = () => {
     if (accountForm.email.length > 0) {
       setIsEmailValid(true);
     } else {
       setIsEmailValid(false);
     }
-  };
+  }, [accountForm.email]);
 
   // TODO
   const onSubmit = (e) => {
