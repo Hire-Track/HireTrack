@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Row from "react-bootstrap/row";
+import Col from "react-bootstrap/col";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PageHeader from "../../components/header";
@@ -9,13 +10,11 @@ import "./styles.css";
 import { mockSkills } from "./mockdata";
 
 const SkillsDashboard = () => {
-  const AddSkillBtn = () => {
-    return (
-      <Link to="/add-skill">
-        <Button>Add Skill</Button>
-      </Link>
-    );
-  };
+  const AddSkillBtn = () => (
+    <Link to="/add-skill">
+      <Button>Add Skill</Button>
+    </Link>
+  );
 
   return (
     <div className="main-content">
@@ -55,18 +54,18 @@ const SkillsRow = () => {
     // Set Skills
     setSkills({
       topSkills: parsedSkills
-        .slice(0, 5)
+        .slice(0, 3)
         .map(({ skillName, skillLevel, jobs }, index) => (
-          <SkillCard
+          <Col><SkillCard
             key={index}
             name={skillName}
             level={skillLevel}
             jobCount={jobs}
             handleOpen={handleOpen}
-          />
+          /></Col>
         )),
       remainingSkills: parsedSkills
-        .slice(5)
+        .slice(3)
         .map(({ skillName, skillLevel, jobs }, index) => (
           <SkillListItem
             key={index}
@@ -90,7 +89,7 @@ const SkillsRow = () => {
   };
   return (
     <>
-      <Row className="skills-row">{skills.topSkills}</Row>
+      <Row xs={1} md={3}>{skills.topSkills}</Row>
       <p />
       <Row>{skills.remainingSkills}</Row>
       <SkillsModal

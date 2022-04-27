@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import "../styles.css";
 
 const AddSkillPage = () => {
@@ -44,9 +45,14 @@ const AddSkillPage = () => {
           </Form.Select>
         </Form.Group>
         <div className="button-row">
-          <Button onClick={handleSubmit}>Save</Button>&emsp;
+          <Button onClick={handleSubmit}>Save</Button>
+          <Link to="/skills">
+            <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
+          </Link>
           {showError && (
-            <span style={{ color: "red", marginLeft: 'auto' }}>All fields are required</span>
+            <span style={{ color: "red", marginLeft: "auto" }}>
+              All fields are required
+            </span>
           )}
         </div>
       </Form>

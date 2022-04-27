@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 export const SkillCard = ({ name, level, jobCount, handleOpen }) => {
   return (
     <Card
-      className={"skills-card col-10 col-md-4 col-lg-2 offset-lg-0"}
+      className={"skills-card"}
       onClick={() => {
         handleOpen(name, level);
       }}
