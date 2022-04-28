@@ -1,0 +1,20 @@
+.jobs-header-2 {
+  color: #5dbb79;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #5dbb79;
+  padding: 0 5px;
+	display: inline-block;
+	font-weight: 600;
+}
+
+.jobs-padding {
+	padding: 3% 20% 0% 20%;
+}
+
+.add-job-button {
+  float: right;
+}
+
+.add-job-padding {
+  padding: 3% 25% 0% 25%;
+}

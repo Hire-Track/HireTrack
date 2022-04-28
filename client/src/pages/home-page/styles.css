@@ -1,0 +1,19 @@
+.hero-row {
+    align-items: flex-start;
+    text-align: center;
+    background-color: #EEF9EA;
+    padding: 5rem 2.5rem 5rem 2.5rem;
+}
+
+.about {
+    background-color: #5DBB79;
+    padding: 3rem 1rem 3rem 1rem;
+    text-align: center;
+    color: #FDFEFD;
+}
+
+.two-col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}

@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fdfefd;
+}
+
+.header-1 {
+  color: #165c59;
+}
+
+.header-2 {
+  color: #5dbb79;
+}
+
+.header-2-border {
+  border-bottom: 2px solid #5dbb79;
+}
+
+.header-3 {
+  color: #347571;
+}
+
+.body-text {
+  color: #224e4b;
+}
+
+.accent-text {
+  color: #5ec67f;
+}
+
+.accent-text-2 {
+  color: #36b276;
+}
+
+.link {
+  color: #b8e28a;
+}
+
+.main-content,
+.form-content {
+  padding: 2rem;
+}
+
+@media only screen and (min-width: 576px) {
+  .main-content {
+    padding: 5rem;
+  }
+  .form-content {
+    padding: 3rem 8rem 3rem 8rem;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .main-content {
+    padding: 3rem 15rem 3rem 15rem;
+  }
+
+  .form-content {
+    padding: 3rem 20rem 3rem 20rem;
+  }
+}
