@@ -5,6 +5,7 @@ import { SkillCard, SkillListItem } from "./skillCard";
 import SkillsModal from "./modal";
 import "../styles.css";
 import { mockSkills } from "../mockdata";
+import { getSkills } from "../../../components/apis";
 
 const SkillsRow = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });
@@ -12,7 +13,7 @@ const SkillsRow = () => {
 
   const fetchData = () => {
     // TODO API to fetch all Skills
-    // Temp dummy data:
+    getSkills();
     return mockSkills;
   };
 

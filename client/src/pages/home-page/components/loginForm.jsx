@@ -3,45 +3,34 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../../components/apis";
 
 const LogInForm = () => {
-  const [email, setEmail] = useState("officerjenny@abc.com");
-  const [pwd, setPwd] = useState("abc123");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && pwd) {
-      try {
-        const response = await fetch('/api/users/login', {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": "token-value",
-        },
-        body: JSON.stringify({email: email, password: pwd})
-        });
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          console.log(data.email);
-        }
-      } catch {
-        console.log("ERROR");
+      const resp = await loginUser(email, pwd);
+      if (resp) {
+        navigate("/job-dashboard");
       }
     }
-  }
+  };
 
   return (
     <div>
       <h3 className="header-2">Log In</h3>
       <Form>
         <Form.Group>
-          <Form.Control type="email" placeholder="Email Address"></Form.Control>
+          <Form.Control type="email" placeholder="Email Address" onChange={e=>{setEmail(e.target.value)}}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Control type="password" placeholder="Password"></Form.Control>
+          <Form.Control type="password" placeholder="Password" onChange={e=>{setPwd(e.target.value)}}></Form.Control>
         </Form.Group>
         <br />
         <Row
