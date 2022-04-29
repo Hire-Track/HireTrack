@@ -1,55 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./JobDashboard.css";
 
 const AddJob = () => {
+  const [values, setValues] = useState({});
 
-	// TODO
-	const onClickSubmit = (e) =>{
-		window.alert("Submitted")
-		// SUBMIT TO DB
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+  };
 
-		// SUCCESS HANDLER 
-		onSubmitSuccess();
-		// ERROR HANDLER
-	}
+  const onSubmit = (e) => {
+    e.preventDefault();
+    e.persist();
+    // console.log(values);
 
-	const onSubmitSuccess = () => {
+    // POST to DB
 
-	}
+    // SUCCESS HANDLER
+    // onSubmitSuccess();
+
+    // ERROR HANDLER
+  };
+
+  // const onSubmitSuccess = () => {
+  // }
 
   return (
     <div className="add-job-padding">
       <h3 className="jobs-header-2">Add job</h3>
-
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group>
-          <Form.Control placeholder="Title"></Form.Control>
+          <Form.Control placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Control placeholder="Company"></Form.Control>
+          <Form.Control placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-				<Form.Group>
-          <Form.Control placeholder="Location"></Form.Control>
+        <Form.Group>
+          <Form.Control placeholder="Location" name="jobLocation" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-				<Form.Group>
-          <Form.Control placeholder="Link to Application"></Form.Control>
+        <Form.Group>
+          <Form.Control placeholder="Link to Application" name="appLink" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-				<Form.Group>
-          <Form.Control placeholder="Job Type"></Form.Control>
+        <Form.Group>
+          <Form.Control placeholder="Job Type" name="jobType" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-				<Form.Group>
-          <Form.Control placeholder="Job Description"></Form.Control>
+        <Form.Group>
+          <Form.Control placeholder="Job Description" name="jobDescription" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-        <Button onClick={onClickSubmit}>
-					Submit
-				</Button>
+        <Button type="submit">
+          Submit
+        </Button>
       </Form>
     </div>
   );
