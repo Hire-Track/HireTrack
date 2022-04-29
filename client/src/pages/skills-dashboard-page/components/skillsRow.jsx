@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Row from "react-bootstrap/row";
-import Col from "react-bootstrap/col";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { SkillCard, SkillListItem } from "./skillCard";
 import SkillsModal from "./modal";
 import "../styles.css";

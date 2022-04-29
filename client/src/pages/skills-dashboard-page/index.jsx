@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "react-bootstrap/button";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import PageHeader from "../../components/header";
 import SkillsRow from "./components/skillsRow";
