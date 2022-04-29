@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "./components/password";
+import { createUser } from "../../components/apis/users";
 import "./styles.css";
 
 const CreateAccountPage = () => {
-  const [accountForm, setAccountForm] = useState({
-    username: "",
+  const [payload, setPayload] = useState({
+    userName: "",
     email: "",
     password: "",
+    gradDate: "",
     realName: "",
-    graduationDate: "",
   });
   const [password, setPassword] = useState("");
   const [isPwdValid, setIsPwdValid] = useState(false);
@@ -21,32 +22,36 @@ const CreateAccountPage = () => {
     email: true,
     password: true,
   });
+  const [showLoading, setShowLoading] = useState(false);
+  const [duplicateUser, setDuplicateUser] = useState(false);
 
   useEffect(() => {
     if (password.length > 0) {
-      setAccountForm({ ...accountForm, password: password });
+      setPayload({ ...payload, password: password });
     }
-  }, [password, accountForm]);
+  }, [password, payload]);
 
   useEffect(() => {
-    if (accountForm.email.length > 0) {
+    if (payload.email.length > 0) {
       setIsEmailValid(true);
     } else {
       setIsEmailValid(false);
     }
-  }, [accountForm.email]);
+  }, [payload.email]);
 
-  // TODO
-  const onSubmit = (e) => {
+  const navigator = useNavigate();
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(
-      accountForm.username,
-      accountForm.email,
-      accountForm.password,
-      accountForm.realName
-    );
-    if (accountForm.username && isEmailValid && isPwdValid) {
-      alert("submit");
+    if (payload.userName && isEmailValid && isPwdValid) {
+      setShowLoading(true);
+      const res = await createUser(payload);
+      if (res.status === 201) {
+        navigator("/job-dashboard");
+      } else if (res.status === 409) {
+        setDuplicateUser(true);
+      }
+      setShowLoading(false);
     } else {
       setIsNew({
         username: false,
@@ -67,29 +72,34 @@ const CreateAccountPage = () => {
       <h3 className={"header-2 header-2-border"}>
         <strong>Create an Account</strong>
       </h3>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label style={{ display: "flex" }}>
             Username:
-            {!isNew.username && !accountForm.username && <ErrorText />}
+            {!isNew.username && !payload.userName && <ErrorText />}
+            {duplicateUser && (
+              <div style={{ color: "red", marginLeft: "auto" }}>
+                Username already exists
+              </div>
+            )}
           </Form.Label>
           <Form.Control
             type="text"
             onChange={(e) => {
-              setAccountForm({ ...accountForm, username: e.target.value });
+              setPayload({ ...payload, userName: e.target.value });
               setIsNew({ ...isNew, username: false });
             }}
           ></Form.Control>
         </Form.Group>
         <Form.Group>
           <Form.Label style={{ display: "flex" }}>
-            Email Address: {!isNew.email && !accountForm.email && <ErrorText />}
+            Email Address: {!isNew.email && !payload.email && <ErrorText />}
           </Form.Label>
           <Form.Control
             type="email"
             placeholder="Email Address"
             onChange={(e) => {
-              setAccountForm({ ...accountForm, email: e.target.value });
+              setPayload({ ...payload, email: e.target.value });
               setIsNew({ ...isNew, email: false });
             }}
           ></Form.Control>
@@ -110,7 +120,7 @@ const CreateAccountPage = () => {
             placeholder="Full Name"
             required={false}
             onChange={(e) => {
-              setAccountForm({ ...accountForm, realName: e.target.value });
+              setPayload({ ...payload, realName: e.target.value });
             }}
           ></Form.Control>
         </Form.Group>
@@ -121,8 +131,13 @@ const CreateAccountPage = () => {
             required={false}
           ></Form.Control>
         </Form.Group>
-        <Button style={{ marginRight: "0.5rem" }} onClick={onSubmit}>
-          Submit
+        <Button
+          style={{ marginRight: "0.5rem" }}
+          onClick={onSubmit}
+          disabled={showLoading}
+          type="submit"
+        >
+          {showLoading ? "Loading" : "Submit"}
         </Button>
         <Link to="/">
           <Button>Cancel</Button>
