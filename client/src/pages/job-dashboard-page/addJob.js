@@ -16,7 +16,18 @@ const AddJob = () => {
     e.persist();
     // console.log(values);
 
+    // TO-DO: fetch token from localStorage instead
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmI2NmMwNDUxZWZkNWU5ZjAxNjEzOSIsImlhdCI6MTY1MTIwNTgyNCwiZXhwIjoxNjUzNzk3ODI0fQ.3fcp8EceqnFJADbtfgd0XoJafBrwe5E1LLT66kLvFe0";
+
     // POST to DB
+    fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(values)
+    })
 
     // SUCCESS HANDLER
     // onSubmitSuccess();

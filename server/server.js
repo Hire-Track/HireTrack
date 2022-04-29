@@ -19,6 +19,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// cors
+const cors = require('cors')
+app.use(cors())
+
 // serve user api to client side
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
