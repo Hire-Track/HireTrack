@@ -72,7 +72,7 @@ const CreateAccountPage = () => {
       <h3 className={"header-2 header-2-border"}>
         <strong>Create an Account</strong>
       </h3>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group>
           <Form.Label style={{ display: "flex" }}>
             Username:
@@ -135,6 +135,7 @@ const CreateAccountPage = () => {
           style={{ marginRight: "0.5rem" }}
           onClick={onSubmit}
           disabled={showLoading}
+          type="submit"
         >
           {showLoading ? "Loading" : "Submit"}
         </Button>

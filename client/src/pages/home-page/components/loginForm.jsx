@@ -34,7 +34,7 @@ const LogInForm = () => {
   return (
     <div>
       <h3 className="header-2">Log In</h3>
-      <Form>
+      <Form onSubmit={handleSubmit} >
         <Form.Group>
           <Form.Control
             type="email"
@@ -62,7 +62,7 @@ const LogInForm = () => {
           className={"justify-content-center align-items-center"}
         >
           <Col>
-            <Button onClick={handleSubmit} disabled={showLoading}>
+            <Button disabled={showLoading} type="submit">
               {showLoading ? "Loading..." : "Log In"}
             </Button>
           </Col>
