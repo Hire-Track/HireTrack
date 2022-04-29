@@ -5,7 +5,7 @@ import { SkillCard, SkillListItem } from "./skillCard";
 import SkillsModal from "./modal";
 import "../styles.css";
 import { mockSkills } from "../mockdata";
-import { getSkills } from "../../../components/apis";
+import { getSkills } from "../../../components/apis/skills";
 
 const SkillsRow = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });

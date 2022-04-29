@@ -4,13 +4,11 @@ export const loginUser = async (email, pwd) => {
       method: "post",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": "token-value",
       },
       body: JSON.stringify({ email: email, password: pwd }),
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       localStorage.setItem("token", data.token);
       return true;
     }
@@ -21,18 +19,23 @@ export const loginUser = async (email, pwd) => {
   }
 };
 
-export const getSkills = async () => {
-  let token = localStorage.getItem("token");
+// "Content-Type": "application/x-www-form-urlencoded",
+export const createUser = async (payload) => {
   try {
-    const response = await fetch("/api/skills", {
-      method: "get",
+    const response = await fetch("/api/users/register", {
+      method: "post",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(payload),
     });
-    console.log(response.json());
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+    }
+    return response;
   } catch {
-    console.log("ERROR: Get Skills");
+    console.log("ERROR: Create User");
+    return false;
   }
 };
