@@ -27,16 +27,12 @@ const AddJob = () => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(values)
-    })
-
-    // SUCCESS HANDLER
-    // onSubmitSuccess();
-
-    // ERROR HANDLER
+    }).then(onSubmitSuccess()).catch(ex => console.error(ex))
   };
 
-  // const onSubmitSuccess = () => {
-  // }
+  const onSubmitSuccess = () => {
+    window.location.href = "http://localhost:3000/job-dashboard"
+  }
 
   return (
     <div className="add-job-padding">
