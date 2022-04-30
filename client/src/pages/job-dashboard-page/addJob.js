@@ -17,7 +17,7 @@ const AddJob = () => {
     // console.log(values);
 
     // TO-DO: fetch token from localStorage instead
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmI2NmMwNDUxZWZkNWU5ZjAxNjEzOSIsImlhdCI6MTY1MTIwNTgyNCwiZXhwIjoxNjUzNzk3ODI0fQ.3fcp8EceqnFJADbtfgd0XoJafBrwe5E1LLT66kLvFe0";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmM3MzNhNTJkNzYxMTkyYTI2YjFhYiIsImlhdCI6MTY1MTI3NDU1NCwiZXhwIjoxNjUzODY2NTU0fQ.VzG5GHxwhetl1E0kjbdgajZTlYdbCWSnEqat2n223WA";
 
     // POST to DB
     fetch('http://localhost:5000/api/jobs', {
@@ -27,7 +27,7 @@ const AddJob = () => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(values)
-    }).then(onSubmitSuccess()).catch(ex => console.error(ex))
+    }).then(onSubmitSuccess()).catch(err => console.error(err))
   };
 
   const onSubmitSuccess = () => {
