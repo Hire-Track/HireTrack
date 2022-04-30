@@ -17,7 +17,7 @@ const AddJob = () => {
     const token = localStorage.getItem("token");
 
     // POST to DB
-    fetch('http://localhost:5000/api/jobs', {
+    fetch('/api/jobs', {
       method: 'POST',
       headers: { 
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const AddJob = () => {
   };
 
   const onSubmitSuccess = () => {
-    window.location.href = "http://localhost:3000/job-dashboard"
+    window.location.href = "/job-dashboard"
   }
 
   return (
