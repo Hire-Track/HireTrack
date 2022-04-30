@@ -40,9 +40,7 @@ const columns = [{
 function JobDashboard() {
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(false);
-
-  // TO-DO: fetch token from localStorage instead
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmM3MzNhNTJkNzYxMTkyYTI2YjFhYiIsImlhdCI6MTY1MTI3NDU1NCwiZXhwIjoxNjUzODY2NTU0fQ.VzG5GHxwhetl1E0kjbdgajZTlYdbCWSnEqat2n223WA";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {

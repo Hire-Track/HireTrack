@@ -14,10 +14,7 @@ const AddJob = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     e.persist();
-    // console.log(values);
-
-    // TO-DO: fetch token from localStorage instead
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmM3MzNhNTJkNzYxMTkyYTI2YjFhYiIsImlhdCI6MTY1MTI3NDU1NCwiZXhwIjoxNjUzODY2NTU0fQ.VzG5GHxwhetl1E0kjbdgajZTlYdbCWSnEqat2n223WA";
+    const token = localStorage.getItem("token");
 
     // POST to DB
     fetch('http://localhost:5000/api/jobs', {
@@ -46,22 +43,26 @@ const AddJob = () => {
           <Form.Control placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Control placeholder="Location" name="jobLocation" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+        <br /> */}
         <Form.Group>
           <Form.Control placeholder="Link to Application" name="appLink" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Control placeholder="Job Type" name="jobType" onChange={onChange}></Form.Control>
+          <Form.Select aria-label="Default select example" name="jobType" onChange={onChange}>
+            <option>Select one</option>
+            <option value="INTERNSHIP">INTERNSHIP</option>
+            <option value="FULLTIME">FULLTIME</option>
+          </Form.Select>
         </Form.Group>
         <br />
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Control placeholder="Job Description" name="jobDescription" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+        <br /> */}
         <Button type="submit">
           Submit
         </Button>
