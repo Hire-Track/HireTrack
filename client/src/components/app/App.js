@@ -27,7 +27,6 @@ function App() {
     return <div>Loading...</div>;
   }
   if (user) {
-    console.log(user);
     return (
       <div className="App">
         <HireTrackNavBar />

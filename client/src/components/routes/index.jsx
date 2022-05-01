@@ -6,6 +6,7 @@ import JobDashboard from "../../pages/job-dashboard-page/JobDashboard";
 import AddJob from "../../pages/job-dashboard-page/addJob";
 import SkillsDashboard from "../../pages/skills-dashboard-page";
 import AddSkillPage from "../../pages/skills-dashboard-page/add-skill-page";
+import AccountPage from "../../pages/account-page";
 
 const AllRoutes = ({ user }) => {
   const routeComponents = [
@@ -15,7 +16,7 @@ const AllRoutes = ({ user }) => {
     { path: "/add-job", component: <AddJob /> },
     { path: "/skills", component: <SkillsDashboard /> },
     { path: "/add-skill", component: <AddSkillPage /> },
-    { path: "/account", component: <HomePage /> },
+    { path: "/account", component: <AccountPage /> },
   ];
 
   return (

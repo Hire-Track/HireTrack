@@ -10,7 +10,12 @@ import "./styles.css";
 const HomePage = ({ user }) => {
   const Top = () => {
     if (user) {
-      return <h1 className="header-1">Welcome, {user}!</h1>;
+      return (
+        <>
+          <h1 className="header-1">Welcome, {user}!</h1>
+          Use the navbar above to navigate.
+        </>
+      );
     }
     return (
       <>

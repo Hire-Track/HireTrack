@@ -16,7 +16,7 @@ const HireTrackNavBar = () => {
   return (
     <Navbar expand="md" sticky="top" className="hiretrack-navbar">
       <Container>
-        <Link class="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/">
           <StackedLineChartIcon />
           &thinsp;HireTrack
         </Link>
@@ -24,22 +24,22 @@ const HireTrackNavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav style={{ marginLeft: "auto" }}>
             <NavDropdown title="Jobs" id="basic-nav-dropdown">
-              <Link class="dropdown-item" to="/job-dashboard">
+              <Link className="dropdown-item" to="/job-dashboard">
                 Jobs Dashboard
               </Link>
-              <Link class="dropdown-item" to="/add-job">
+              <Link className="dropdown-item" to="/add-job">
                 Add a Job
               </Link>
             </NavDropdown>
             <NavDropdown title="Skills" id="basic-nav-dropdown">
-              <Link class="dropdown-item" to="/skills">
+              <Link className="dropdown-item" to="/skills">
                 Skills Dashboard
               </Link>
-              <Link class="dropdown-item" to="/add-skill">
+              <Link className="dropdown-item" to="/add-skill">
                 Add a Skill
               </Link>
             </NavDropdown>
-            <Link class="nav-link" to="/account">
+            <Link className="nav-link" to="/account">
               Account
             </Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
