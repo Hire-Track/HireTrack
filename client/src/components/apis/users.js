@@ -28,14 +28,17 @@ export const createUser = async (payload) => {
       },
       body: JSON.stringify(payload),
     });
-    if (response.status === 200) {
+    if (response.status === 201) {
       const data = await response.json();
-      console.log(data);
+      localStorage.setItem("token", data.token);
+      return "success";
+    } else if (response.status === 409) {
+      return "user taken";
     }
-    return response;
+    return "invalid";
   } catch {
     console.log("ERROR: Create User");
-    return false;
+    return "error";
   }
 };
 
