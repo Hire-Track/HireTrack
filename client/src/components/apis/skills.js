@@ -1,3 +1,5 @@
+import { logout } from "../app/userContext";
+
 export const getSkills = async () => {
     let token = localStorage.getItem("token");
     try {
@@ -10,6 +12,7 @@ export const getSkills = async () => {
       });
       console.log(response.json());
     } catch {
+      logout();
       console.log("ERROR: Get Skills");
     }
   };

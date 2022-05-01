@@ -16,10 +16,11 @@ const LogInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email && pwd) {
-      setShowLoading(true);
+    setShowLoading(true);
       const resp = await loginUser(email, pwd);
       if (resp) {
         navigate("/job-dashboard");
+        window.location.reload();
       } else {
         setShowError(true);
       }

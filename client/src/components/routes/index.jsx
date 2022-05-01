@@ -7,9 +7,9 @@ import AddJob from "../../pages/job-dashboard-page/addJob";
 import SkillsDashboard from "../../pages/skills-dashboard-page";
 import AddSkillPage from "../../pages/skills-dashboard-page/add-skill-page";
 
-const AllRoutes = () => {
+const AllRoutes = ({ user }) => {
   const routeComponents = [
-    { path: "/", component: <HomePage /> },
+    { path: "/", component: <HomePage user={user} /> },
     { path: "/signup", component: <CreateAccountPage /> },
     { path: "/job-dashboard", component: <JobDashboard /> },
     { path: "/add-job", component: <AddJob /> },
@@ -18,23 +18,13 @@ const AllRoutes = () => {
     { path: "/account", component: <HomePage /> },
   ];
 
-  // TODO
-  let isLoggedIn = true;
-  if (!isLoggedIn) {
-    return (
-      <Routes>
-        <Route exact path={"/"} element={<HomePage />} />
-      </Routes>
-    );
-  } else {
-    return (
-      <Routes>
-        {routeComponents.map(({ path, component }, key) => (
-          <Route exact path={path} element={component} key={key} />
-        ))}
-      </Routes>
-    );
-  }
+  return (
+    <Routes>
+      {routeComponents.map(({ path, component }, key) => (
+        <Route exact path={path} element={component} key={key} />
+      ))}
+    </Routes>
+  );
 };
 
 export default AllRoutes;
