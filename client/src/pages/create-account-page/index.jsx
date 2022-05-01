@@ -46,9 +46,11 @@ const CreateAccountPage = () => {
     if (payload.userName && isEmailValid && isPwdValid) {
       setShowLoading(true);
       const res = await createUser(payload);
-      if (res.status === 201) {
-        navigator("/job-dashboard");
-      } else if (res.status === 409) {
+      if (res === "success") {
+        alert("Creation successfull! Redirecting");
+        navigator("/");
+        window.location.reload();
+      } else if (res === "user taken") {
         setDuplicateUser(true);
       }
       setShowLoading(false);
