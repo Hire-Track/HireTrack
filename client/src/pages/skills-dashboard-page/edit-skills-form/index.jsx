@@ -60,7 +60,8 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
           </Button>
           &emsp;
           <Button onClick={showJobsModal}>Cancel</Button>
-          <Button onClick={onDelete} style={{ marginLeft: "auto" }} variant="danger">
+          &emsp;
+          <Button onClick={onDelete} variant="danger">
             Delete
           </Button>
         </div>

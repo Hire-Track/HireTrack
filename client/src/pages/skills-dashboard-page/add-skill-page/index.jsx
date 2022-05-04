@@ -28,7 +28,7 @@ const AddSkillPage = () => {
       <h3 className="header-2 header-2-border">
         <strong>Add Skill</strong>
       </h3>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Control
           placeholder="Skill Name"
           onChange={(e) => {
@@ -52,7 +52,7 @@ const AddSkillPage = () => {
           </Form.Select>
         </Form.Group>
         <div className="button-row">
-          <Button onClick={handleSubmit} disabled={showLoading}>
+          <Button onClick={handleSubmit} disabled={showLoading} type="submit">
             {showLoading ? "Loading..." : "Save"}
           </Button>
           <Link to="/skills">
