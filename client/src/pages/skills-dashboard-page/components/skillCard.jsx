@@ -2,12 +2,12 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import "../styles.css";
 
-export const SkillCard = ({ name, level, jobCount, handleOpen }) => {
+export const SkillCard = ({ id, name, level, jobCount, handleOpen }) => {
   return (
     <Card
       className={"skills-card"}
       onClick={() => {
-        handleOpen(name, level);
+        handleOpen(id, name, level);
       }}
     >
       <Card.Body className="body-text">
@@ -19,9 +19,9 @@ export const SkillCard = ({ name, level, jobCount, handleOpen }) => {
   );
 };
 
-export const SkillListItem = ({ name, level, jobCount, handleOpen }) => {
+export const SkillListItem = ({ id, name, level, jobCount, handleOpen }) => {
   return (
-    <li className="skills-item" onClick={()=>{handleOpen(name, level)}}>
+    <li className="skills-item" onClick={()=>{handleOpen(id, name, level)}}>
       <strong>{name}</strong> {level} – {jobCount}
     </li>
   );

@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createSkill } from "../../../components/apis/skills";
 import "../styles.css";
 
 const AddSkillPage = () => {
+  const navigator = useNavigate();
   const [skillName, setSkillName] = useState("");
   const [skillLevel, setSkillLevel] = useState(null);
   const [showError, setShowError] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setShowLoading(true);
     if (skillName && skillLevel) {
-      alert(skillName + ": " + skillLevel);
+      createSkill({ skillName: skillName, skillLevel: skillLevel });
+      navigator("/skills");
     } else {
       setShowError(true);
     }
+    setShowLoading(false);
   };
 
   return (
@@ -39,13 +45,15 @@ const AddSkillPage = () => {
             <option selected disabled>
               Skill Level:
             </option>
-            <option value={0}>Beginner</option>
-            <option value={1}>Intermediate</option>
-            <option value={2}>Advanced</option>
+            <option value={"BEGINNER"}>Beginner</option>
+            <option value={"INTERMEDIATE"}>Intermediate</option>
+            <option value={"ADVANCED"}>Advanced</option>
           </Form.Select>
         </Form.Group>
         <div className="button-row">
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button onClick={handleSubmit} disabled={showLoading}>
+            {showLoading ? "Loading..." : "Save"}
+          </Button>
           <Link to="/skills">
             <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
           </Link>

@@ -1,21 +1,55 @@
-import React from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { updateSkill } from "../../../components/apis/skills";
 import "../styles.css";
 
-const EditSkillForm = ({ handleCancel }) => {
+const EditSkillForm = ({ id, skillName, handleCancel, handleClose }) => {
+  const [payload, setPayload] = useState({
+    id: id,
+    skillName: skillName,
+    skillLevel: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setPayload({ ...payload, skillLevel: e.target.value.toUpperCase() });
+  };
+
+  const onSave = async () => {
+    setIsLoading(true);
+    if (payload.skillLevel.length > 0) {
+      const resp = await updateSkill(payload);
+      if (resp) {
+        handleClose();
+      } else {
+        alert("error!");
+      }
+    } else {
+      alert("Choose Level");
+    }
+    setIsLoading(false);
+  };
+
   return (
     <div>
       <h4 className="header-3">Edit Skill Level</h4>
       <Form>
         <Form.Group>
-          <Form.Select>
+          <Form.Select onChange={handleChange}>
+            <option selected disabled>
+              Skill Level:
+            </option>
             <option>Beginner</option>
             <option>Intermediate</option>
-            <option>Expert</option>
+            <option>Advanced</option>
           </Form.Select>
         </Form.Group>
         <div className="button-row">
-          <Button>Save</Button>&emsp;
+          <Button onClick={onSave} disabled={isLoading}>
+            {isLoading ? "Loading" : "Save"}
+          </Button>
+          &emsp;
           <Button onClick={handleCancel}>Cancel</Button>
         </div>
       </Form>

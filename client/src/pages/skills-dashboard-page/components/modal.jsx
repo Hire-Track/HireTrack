@@ -5,7 +5,7 @@ import EditSkillForm from "../edit-skills-form";
 import "../../../components/app/App.css";
 import "../styles.css";
 
-const SkillsModal = ({ show, handleClose, name, level }) => {
+const SkillsModal = ({ id, show, handleClose, name, level }) => {
   const [showJobs, setShowJobs] = useState(true);
   const JobsList = () => {
     return (
@@ -34,7 +34,14 @@ const SkillsModal = ({ show, handleClose, name, level }) => {
       </Modal.Header>
       <Modal.Body>
         {showJobs && <JobsList />}
-        {!showJobs && <EditSkillForm handleCancel={handleCancel} />}
+        {!showJobs && (
+          <EditSkillForm
+            id={id}
+            skillName={name}
+            handleCancel={handleCancel}
+            handleClose={handleClose}
+          />
+        )}
       </Modal.Body>
       {showJobs && (
         <Modal.Footer>
