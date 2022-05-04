@@ -41,13 +41,14 @@ const AddSkillPage = () => {
             onChange={(e) => {
               setSkillLevel(e.target.value);
             }}
+            defaultValue=""
           >
-            <option selected disabled>
+            <option value="" disabled>
               Skill Level:
             </option>
-            <option value={"BEGINNER"}>Beginner</option>
-            <option value={"INTERMEDIATE"}>Intermediate</option>
-            <option value={"ADVANCED"}>Advanced</option>
+            <option value="BEGINNER">Beginner</option>
+            <option value="INTERMEDIATE">Intermediate</option>
+            <option value="ADVANCED">Advanced</option>
           </Form.Select>
         </Form.Group>
         <div className="button-row">

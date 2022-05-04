@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { updateSkill } from "../../../components/apis/skills";
+import { updateSkill, deleteSkill } from "../../../components/apis/skills";
 import "../styles.css";
 
 const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
@@ -32,18 +32,26 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
     setIsLoading(false);
   };
 
+  const onDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this skill?")) {
+      const resp = await deleteSkill(id);
+      if (resp) {
+        handleModal.handleClose();
+      }
+    }
+  };
+
   return (
     <div>
-      <h4 className="header-3">Edit Skill Level</h4>
       <Form>
         <Form.Group>
-          <Form.Select onChange={handleChange}>
-            <option selected disabled>
-              Skill Level:
+          <Form.Select defaultValue="" onChange={handleChange}>
+            <option value="" disabled>
+              Edit Skill Level:
             </option>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
+            <option value="BEGINNER">Beginner</option>
+            <option value="INTERMEDIATE">Intermediate</option>
+            <option value="ADVANCED">Advanced</option>
           </Form.Select>
         </Form.Group>
         <div className="button-row">
@@ -52,6 +60,9 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
           </Button>
           &emsp;
           <Button onClick={showJobsModal}>Cancel</Button>
+          <Button onClick={onDelete} style={{ marginLeft: "auto" }} variant="danger">
+            Delete
+          </Button>
         </div>
       </Form>
     </div>

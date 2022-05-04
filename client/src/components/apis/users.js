@@ -61,6 +61,7 @@ export const getUser = async () => {
       return false;
     }
   } catch {
+    console.log("ERROR: Get User")
     return false;
   }
 };
