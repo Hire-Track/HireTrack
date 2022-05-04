@@ -12,8 +12,8 @@ export const SkillCard = ({ id, name, level, jobCount, handleOpen }) => {
     >
       <Card.Body className="body-text">
         <Card.Title>{name}</Card.Title>
-        <Card.Subtitle>Level: {level}</Card.Subtitle>
-        <Card.Link>Found in {jobCount} Jobs</Card.Link>
+        <Card.Subtitle className="grey">{level}</Card.Subtitle>
+        <Card.Text>{jobCount} Jobs</Card.Text>
       </Card.Body>
     </Card>
   );

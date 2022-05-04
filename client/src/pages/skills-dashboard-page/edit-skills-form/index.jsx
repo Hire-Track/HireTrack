@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { updateSkill } from "../../../components/apis/skills";
 import "../styles.css";
 
-const EditSkillForm = ({ id, skillName, handleCancel, handleClose }) => {
+const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
   const [payload, setPayload] = useState({
     id: id,
     skillName: skillName,
@@ -21,7 +21,8 @@ const EditSkillForm = ({ id, skillName, handleCancel, handleClose }) => {
     if (payload.skillLevel.length > 0) {
       const resp = await updateSkill(payload);
       if (resp) {
-        handleClose();
+        showJobsModal();
+        handleModal.handleOpen(id, skillName, payload.skillLevel);
       } else {
         alert("error!");
       }
@@ -50,7 +51,7 @@ const EditSkillForm = ({ id, skillName, handleCancel, handleClose }) => {
             {isLoading ? "Loading" : "Save"}
           </Button>
           &emsp;
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={showJobsModal}>Cancel</Button>
         </div>
       </Form>
     </div>

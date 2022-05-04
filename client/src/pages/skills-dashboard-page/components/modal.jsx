@@ -5,27 +5,20 @@ import EditSkillForm from "../edit-skills-form";
 import "../../../components/app/App.css";
 import "../styles.css";
 
-const SkillsModal = ({ id, show, handleClose, name, level }) => {
+const SkillsModal = ({ id, show, handleModal, name, level }) => {
   const [showJobs, setShowJobs] = useState(true);
-  const JobsList = () => {
-    return (
-      <>
-        Jobs That Require This Skill:
-        <br />
-      </>
-    );
-  };
+  const JobsList = () => (<>Jobs That Require This Skill:<br /></>);
 
   useEffect(() => {
     setShowJobs(true);
   }, [show]);
 
-  const handleCancel = () => {
+  const showJobsModal = () => {
     setShowJobs(true);
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" scrollable={true}>
+    <Modal show={show} onHide={handleModal.handleClose} size="lg" scrollable={true}>
       <Modal.Header closeButton>
         <Modal.Title>
           <strong>{name}</strong>&emsp;
@@ -38,8 +31,8 @@ const SkillsModal = ({ id, show, handleClose, name, level }) => {
           <EditSkillForm
             id={id}
             skillName={name}
-            handleCancel={handleCancel}
-            handleClose={handleClose}
+            showJobsModal={showJobsModal}
+            handleModal={handleModal}
           />
         )}
       </Modal.Body>

@@ -9,18 +9,20 @@ import "../styles.css";
 const SkillsRow = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });
   const [parsedSkills, setParsedSkills] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState({ id: "", name: "", level: "" });
 
-  const parseData = (data) => {
-    // TODO
-    return data;
-  };
-
+  // Get all skills on page load
   useEffect(() => {
     const fetchData = async () => {
       const data = await getSkills();
-      setParsedSkills(parseData(data));
+      setParsedSkills(data);
     };
+    fetchData();
+  }, [showModal]);
 
+  // If there are skills, sort the skills and set the top three in demand skills
+  useEffect(() => {
     const sortSkills = () => {
       // Sort by most in demand (jobs count)
       parsedSkills.sort(function (a, b) {
@@ -55,15 +57,8 @@ const SkillsRow = () => {
           )),
       });
     };
-
-    fetchData();
-    if (parsedSkills.length > 0) {
-      sortSkills();
-    }
-  }, [parsedSkills, setParsedSkills]);
-
-  const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({ id: "", name: "", level: "" });
+    sortSkills();
+  }, [parsedSkills]);
 
   const handleOpen = (id, name, level) => {
     setShowModal(true);
@@ -83,7 +78,7 @@ const SkillsRow = () => {
       <Row>{skills.remainingSkills}</Row>
       <SkillsModal
         show={showModal}
-        handleClose={handleClose}
+        handleModal={{ handleOpen: handleOpen, handleClose: handleClose }}
         id={modalData.id}
         name={modalData.name}
         level={modalData.level}

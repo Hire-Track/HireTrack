@@ -7,10 +7,10 @@ const AccountPage = () => {
   useEffect(() => {
     const setData = async () => {
       const { userName, email } = await getUser();
-      setUserData({ ...userData, userName: userName, email: email });
+      setUserData({ userName: userName, email: email });
     };
     setData();
-  }, [userData]);
+  }, []);
 
   if (userData.userName) {
     return (
