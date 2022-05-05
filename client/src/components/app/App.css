@@ -39,6 +39,10 @@ body {
   color: #b8e28a;
 }
 
+.grey {
+  color: #676767;
+}
+
 .main-content,
 .form-content {
   padding: 2rem;

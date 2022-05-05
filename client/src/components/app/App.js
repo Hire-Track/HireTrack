@@ -39,8 +39,8 @@ function App() {
     return (
       <div className="App">
         <Routes>
-        <Route exact path="/signup" element={<CreateAccountPage />} />
-        <Route exact path="/*" element={<HomePage />} />
+          <Route exact path="/signup" element={<CreateAccountPage />} />
+          <Route exact path="/*" element={<HomePage />} />
         </Routes>
       </div>
     );
