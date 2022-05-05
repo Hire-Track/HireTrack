@@ -56,12 +56,37 @@ export const getUser = async () => {
       },
     });
     if (response.ok) {
-      return response.json();
+      return await response.json();
     } else {
       return false;
     }
   } catch {
-    console.log("ERROR: Get User")
+    console.log("ERROR: Get User");
+    return false;
+  }
+};
+
+export const editUser = async (payload) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return false;
+  }
+  try {
+    const response = await fetch("/api/users/me", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    if (response.status === 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch {
+    console.log("ERROR: Edit User");
     return false;
   }
 };
