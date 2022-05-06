@@ -18,3 +18,12 @@
 .add-job-padding {
   padding: 3% 25% 0% 25%;
 }
+
+.delete-button {
+  color: #347571;
+  border-color: #347571;
+  border-width: 0.1ex 0.1ex 0.1ex 0.1ex;
+  border-radius: 20px;
+  background-color: #FDFEFD;
+  font-size: small;
+}

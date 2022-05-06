@@ -35,7 +35,31 @@ const columns = [{
   // text: 'Description',
   // headerStyle: { color: '#347571'},
   // style: {color: '#224e4b'}
+}, {
+  editable: false,
+  formatter: (content, row) => {
+    return (
+      <button className='delete-button' onClick = {() => deleteJob(row.id)}>
+        Delete
+      </button>
+    )
+  }
 }];
+
+const deleteJob = (jobId) => {
+  const token = localStorage.getItem("token");
+  fetch(`api/jobs/${jobId}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  }).then(onSubmitSuccess().catch(err => console.err(err)))
+}
+
+const onSubmitSuccess= () => {
+  window.location.href = "/job-dashboard"
+}
 
 function JobDashboard() {
   const [jobs, setJobs] = useState([])
@@ -68,7 +92,8 @@ function JobDashboard() {
     json.forEach(job => {
     
       let each = 
-      {
+      { 
+        id: job._id,
         title: job.jobTitle, 
         company: job.jobCompany,
         application: job.appLink,
@@ -78,6 +103,26 @@ function JobDashboard() {
       dataArray.push(each)
     });
     return dataArray;
+  }
+
+  const afterSaveCell = (oldValue, newValue, row, column) => {
+    const jobId = row.id;
+    let values = {
+      jobTitle: row.title,
+      jobCompany: row.company,
+      appLink: row.application,
+      jobType: row.type
+    }
+
+    // PUT to DB
+    fetch(`api/jobs/${jobId}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(values)
+    })
   }
 
 	return (
@@ -92,7 +137,13 @@ function JobDashboard() {
 
 			<BootstrapTable 
         bordered={ false } 
-        cellEdit={ cellEditFactory({ mode:'click' }) }
+        cellEdit={ cellEditFactory({ 
+          mode:'click',
+          blurToSave: true,
+          afterSaveCell: (oldValue, newValue, row, column) => {
+            afterSaveCell(oldValue, newValue, row, column);
+          }
+        }) }
         keyField= 'id'
         data={ jobs } 
         columns={ columns } />
