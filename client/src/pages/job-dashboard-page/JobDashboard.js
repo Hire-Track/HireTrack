@@ -68,7 +68,8 @@ function JobDashboard() {
     json.forEach(job => {
     
       let each = 
-      {
+      { 
+        id: job._id,
         title: job.jobTitle, 
         company: job.jobCompany,
         application: job.appLink,
@@ -78,6 +79,26 @@ function JobDashboard() {
       dataArray.push(each)
     });
     return dataArray;
+  }
+
+  const afterSaveCell = (oldValue, newValue, row, column) => {
+    const jobId = row.id;
+    let values = {
+      jobTitle: row.title,
+      jobCompany: row.company,
+      appLink: row.application,
+      jobType: row.type
+    }
+
+    // PUT to DB
+    fetch(`api/jobs/${jobId}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(values)
+    })
   }
 
 	return (
@@ -92,7 +113,13 @@ function JobDashboard() {
 
 			<BootstrapTable 
         bordered={ false } 
-        cellEdit={ cellEditFactory({ mode:'click' }) }
+        cellEdit={ cellEditFactory({ 
+          mode:'click',
+          blurToSave: true,
+          afterSaveCell: (oldValue, newValue, row, column) => {
+            afterSaveCell(oldValue, newValue, row, column);
+          }
+        }) }
         keyField= 'id'
         data={ jobs } 
         columns={ columns } />
