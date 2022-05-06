@@ -35,7 +35,31 @@ const columns = [{
   // text: 'Description',
   // headerStyle: { color: '#347571'},
   // style: {color: '#224e4b'}
+}, {
+  editable: false,
+  formatter: (content, row) => {
+    return (
+      <button className='delete-button' onClick = {() => deleteJob(row.id)}>
+        Delete
+      </button>
+    )
+  }
 }];
+
+const deleteJob = (jobId) => {
+  const token = localStorage.getItem("token");
+  fetch(`api/jobs/${jobId}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  }).then(onSubmitSuccess().catch(err => console.err(err)))
+}
+
+const onSubmitSuccess= () => {
+  window.location.href = "/job-dashboard"
+}
 
 function JobDashboard() {
   const [jobs, setJobs] = useState([])
