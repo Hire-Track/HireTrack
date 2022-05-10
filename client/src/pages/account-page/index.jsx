@@ -4,7 +4,7 @@ import EditAccountForm from "./edit-account";
 import { getUser } from "../../components/apis/users";
 import PageHeader from "../../components/header";
 import LoadingPage from "../loading-page";
-import Moment from "moment";
+import dateFormat from "dateformat";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState({
@@ -33,7 +33,7 @@ const AccountPage = () => {
   }, [showModal]);
 
   const formatDate = (date) => {
-    return Moment().format("MMM DD, YYYY");
+    return dateFormat(date, "longDate");
   };
 
   if (userData.userName) {
