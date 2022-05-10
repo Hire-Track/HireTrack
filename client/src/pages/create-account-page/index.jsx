@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
+import DatePicker from "react-date-picker";
 import PasswordInput from "./components/password";
 import { createUser } from "../../components/apis/users";
 import "./styles.css";
@@ -18,12 +19,14 @@ const CreateAccountPage = () => {
   const [isPwdValid, setIsPwdValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isNew, setIsNew] = useState({
-    username: true,
+    userName: true,
     email: true,
     password: true,
+    gradDate: true,
   });
   const [showLoading, setShowLoading] = useState(false);
   const [duplicateUser, setDuplicateUser] = useState(false);
+  const [gradDate, setGradDate] = useState("");
 
   useEffect(() => {
     if (password.length > 0) {
@@ -56,9 +59,10 @@ const CreateAccountPage = () => {
       setShowLoading(false);
     } else {
       setIsNew({
-        username: false,
+        userName: false,
         email: false,
         password: false,
+        gradDate: false,
       });
     }
   };
@@ -78,10 +82,10 @@ const CreateAccountPage = () => {
         <Form.Group>
           <Form.Label style={{ display: "flex" }}>
             Username:
-            {!isNew.username && !payload.userName && <ErrorText />}
+            {!isNew.userName && !payload.userName && <ErrorText />}
             {duplicateUser && (
               <div style={{ color: "red", marginLeft: "auto" }}>
-                Username already exists
+                Username and/or email already in use
               </div>
             )}
           </Form.Label>
@@ -89,7 +93,7 @@ const CreateAccountPage = () => {
             type="text"
             onChange={(e) => {
               setPayload({ ...payload, userName: e.target.value });
-              setIsNew({ ...isNew, username: false });
+              setIsNew({ ...isNew, userName: false });
             }}
           ></Form.Control>
         </Form.Group>
@@ -115,8 +119,11 @@ const CreateAccountPage = () => {
           requiredText={<ErrorText />}
         />
         <p />
-        <Form.Label>Optional:</Form.Label>
+        <Form.Label>
+          <u>Optional:</u>
+        </Form.Label>
         <Form.Group>
+          <Form.Label>Name:</Form.Label>
           <Form.Control
             type="text"
             placeholder="Full Name"
@@ -126,13 +133,16 @@ const CreateAccountPage = () => {
             }}
           ></Form.Control>
         </Form.Group>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            placeholder="Graduation Date"
-            required={false}
-          ></Form.Control>
-        </Form.Group>
+        <Form.Label>Graduation Date:</Form.Label> <br />
+        <DatePicker
+          value={gradDate}
+          onChange={(value) => {
+            setGradDate(value);
+            setPayload({ ...payload, gradDate: value });
+            setIsNew({ ...isNew, gradDate: false });
+          }}
+        />
+        <p />
         <Button
           style={{ marginRight: "0.5rem" }}
           onClick={onSubmit}

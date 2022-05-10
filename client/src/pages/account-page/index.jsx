@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import EditAccountForm from "./edit-account";
 import { getUser } from "../../components/apis/users";
 import PageHeader from "../../components/header";
+import LoadingPage from "../loading-page";
+import Moment from "moment";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState({
@@ -30,6 +32,10 @@ const AccountPage = () => {
     setData();
   }, [showModal]);
 
+  const formatDate = (date) => {
+    return Moment().format("MMM DD, YYYY");
+  };
+
   if (userData.userName) {
     const EditProfileBtn = () => (
       <Button
@@ -43,21 +49,36 @@ const AccountPage = () => {
     return (
       <div className="main-content">
         <PageHeader text="Account Details" button={<EditProfileBtn />} />
-        username: {userData.userName} <br />
-        email: {userData.email} <br />
-        {userData.realName ? userData.realName : ""} <br />
-        {userData.gradDate ? userData.gradDate : ""}
+        {userData.realName ? (
+          <>
+            Name: {userData.realName}
+            <br />
+          </>
+        ) : (
+          ""
+        )}
+        Username: {userData.userName} <br />
+        Email: {userData.email} <br />
+        {userData.gradDate ? (
+          <>
+            Graduation Date: {formatDate(userData.gradDate)}
+            <br />
+          </>
+        ) : (
+          ""
+        )}
         {showModal && (
           <EditAccountForm
             show={showModal}
             handleClose={handleClose}
             realName={userData.realName}
+            gradDate={userData.gradDate}
           />
         )}
       </div>
     );
   } else {
-    return <div className="main-content">Loading...</div>;
+    return <LoadingPage />;
   }
 };
 
