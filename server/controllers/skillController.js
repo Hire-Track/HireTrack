@@ -12,7 +12,7 @@ const getSkills = asyncHandler(async (req, res) => {
   res.status(200).json(skills)
 })
 
-// @desc    Get Skills Matches for an authorized user
+// @desc    Get Skills Matched Job IDs for an authorized user
 // @route   GET /api/skills/matches
 // @access  Private req.user retrieved from auth middleware
 const getSkillMatches = asyncHandler(async (req, res) => {
