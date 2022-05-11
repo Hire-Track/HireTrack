@@ -32,6 +32,8 @@ const setJob = asyncHandler(async (req, res) => {
     appLink: req.body.appLink,
     jobSkills: req.body.jobSkills,
     jobBenefits: req.body.jobBenefits,
+    jobLocation: req.body.jobLocation,
+    jobDescription: req.body.jobDescription,
     dateApplied: req.body.dateApplied,
     dateResponse: req.body.dateResponse,
     dateInterview: req.body.dateInterview,

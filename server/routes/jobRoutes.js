@@ -47,6 +47,9 @@ const { protect } = require('../middleware/authMiddleware.js')
  *         jobBenefits:
  *           type: Array of Strings
  *           description: Benefits listed for this job
+ *         jobLocation:
+ *           type: String
+ *           description: location listed for this job
  *         dateApplied:
  *           type: Date
  *           description: Date applied to this job
@@ -128,6 +131,12 @@ const { protect } = require('../middleware/authMiddleware.js')
  *               jobBenefits:
  *                 type: Array of Strings
  *                 description: Benefits listed for this job
+ *               jobLocation:
+ *                 type: String
+ *                 description: location listed for this job
+ *               jobDescription:
+ *                 type: String
+ *                 description: Description for this job
  *               dateApplied:
  *                 type: Date
  *                 description: Date applied to this job
@@ -200,6 +209,12 @@ router.route('/').get(protect, getJobs).post(protect, setJob)
 *               jobBenefits:
 *                 type: Array of Strings
 *                 description: Benefits listed for this job
+*               jobLocation:
+*                 type: String
+*                 description: location listed for this job
+*               jobDescription:
+*                 type: String
+*                 description: Description for this job
 *               dateApplied:
 *                 type: Date
 *                 description: Date applied to this job

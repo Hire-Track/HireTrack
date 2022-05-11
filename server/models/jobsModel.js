@@ -25,6 +25,8 @@ const jobSchema = mongoose.Schema(
     },
     jobSkills: { type: [String] },
     jobBenefits: { type: [String] },
+    jobLocation: { type: String },
+    jobDescription: { type: String },
     dateApplied: { type: Date },
     dateResponse: { type: Date },
     dateInterview: { type: Date },
