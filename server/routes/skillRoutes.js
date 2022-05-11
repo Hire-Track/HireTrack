@@ -4,7 +4,8 @@ const {
   getSkills,
   setSkill,
   updateSkill,
-  deleteSkill
+  deleteSkill,
+  getSkillMatches
 } = require('../controllers/skillController.js')
 const { protect } = require('../middleware/authMiddleware.js')
 /**
@@ -151,7 +152,26 @@ router.route('/').get(protect, getSkills).post(protect, setSkill)
 *       401:
 *         description: Not Authorized
 */
+
+/**
+* @swagger
+* /skills/matches:
+*   get:
+*     summary: Get job id matches for all user skills - Need Auth
+*     tags: [Skills]
+*     security:
+*       - BearerAuth: [read]
+*     responses:
+*       200:
+*         description: Success - JSON, keys are skill ID, values are arrays of matched jobIDs
+*       401:
+*         description: Not Authorized
+*/
+
 // update aand delete skills
 router.route('/:id').delete(protect, deleteSkill).put(protect, updateSkill)
+
+// get skill matches
+router.route('/matches').get(protect, getSkillMatches)
 
 module.exports = router
