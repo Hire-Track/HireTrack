@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 // schema for jobs
 const jobSchema = mongoose.Schema(
@@ -27,10 +28,22 @@ const jobSchema = mongoose.Schema(
     jobBenefits: { type: [String] },
     jobLocation: { type: String },
     jobDescription: { type: String },
-    dateApplied: { type: Date },
-    dateResponse: { type: Date },
-    dateInterview: { type: Date },
-    dateOffer: { type: Date },
+    dateApplied: {
+      type: Date,
+      validate: [validator.isDate, 'invalid Date format']
+    },
+    dateResponse: {
+      type: Date,
+      validate: [validator.isDate, 'invalid Date format']
+    },
+    dateInterview: {
+      type: Date,
+      validate: [validator.isDate, 'invalid Date format']
+    },
+    dateOffer: {
+      type: Date,
+      validate: [validator.isDate, 'invalid Date format']
+    },
     appStatus: {
       type: String,
       enum: ['APPLIED', 'WAITING', 'INTERVIEW SCHEDULED', 'INTERVIEW DONE']

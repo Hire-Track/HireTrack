@@ -2,6 +2,7 @@
 
 const asyncHandler = require('express-async-handler')
 const Job = require('../models/jobsModel')
+const Skill = require('../models/skillsModel')
 
 // @desc    Get Jobs for an authorized user
 // @route   GET /api/jobs
@@ -9,6 +10,31 @@ const Job = require('../models/jobsModel')
 const getJobs = asyncHandler(async (req, res) => {
   const jobs = await Job.find({ user: req.user.id })
   res.status(200).json(jobs)
+})
+
+// @desc    Get Job Matched Skill Ids for an authorized user
+// @route   GET /api/jobs/matches
+// @access  Private - req.user retreived from auth middleware
+const getJobMatches = asyncHandler(async (req, res) => {
+  const jobs = await Job.find({ user: req.user.id })
+  const skills = await Skill.find({ user: req.user.id })
+
+  // returns a JSON with the key the objectID for the job
+  // value is an array of matched skillIDs for that job
+  const matchedSkills = {}
+  for (const i in jobs) {
+    matchedSkills[jobs[i]._id] = []
+    for (const j in skills) {
+      if ('jobSkills' in jobs[i]) {
+        for (const k in jobs[i].jobSkills) {
+          if (jobs[i].jobSkills[k].includes(skills[j].skillName)) {
+            matchedSkills[jobs[i]._id].push(skills[j]._id)
+          }
+        }
+      }
+    }
+  }
+  res.status(200).json(matchedSkills)
 })
 
 // @desc    Create job for an authorized user
@@ -111,5 +137,6 @@ module.exports = {
   getJobs,
   setJob,
   updateJob,
-  deleteJob
+  deleteJob,
+  getJobMatches
 }
