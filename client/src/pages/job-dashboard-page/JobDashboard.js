@@ -47,17 +47,19 @@ const columns = [{
 }];
 
 const deleteJob = (jobId) => {
-  const token = localStorage.getItem("token");
-  fetch(`api/jobs/${jobId}`, {
-    method: 'DELETE',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  }).then(onSubmitSuccess().catch(err => console.err(err)))
+  if (window.confirm("Are you sure you want to delete this job?")) {
+    const token = localStorage.getItem("token");
+    fetch(`api/jobs/${jobId}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    }).then(onSubmitSuccess().catch(err => console.err(err)))
+  }
 }
 
-const onSubmitSuccess= () => {
+const onSubmitSuccess = () => {
   window.location.href = "/job-dashboard"
 }
 
