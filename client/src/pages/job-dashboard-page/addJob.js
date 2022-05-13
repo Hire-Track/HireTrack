@@ -36,11 +36,11 @@ const AddJob = () => {
       <h3 className="jobs-header-2">Add Job</h3>
       <Form onSubmit={onSubmit}>
         <Form.Group>
-          <Form.Control placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
+          <Form.Control required placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Control placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
+          <Form.Control required placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
@@ -52,11 +52,11 @@ const AddJob = () => {
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Select aria-label="Default select example" name="jobType" onChange={onChange}>
-            <option>Type: </option>
+          <Form.Control required as="select" aria-label="Default select example" name="jobType" onChange={onChange}>
+            <option value="">Type: </option>
             <option value="INTERNSHIP">INTERNSHIP</option>
             <option value="FULLTIME">FULLTIME</option>
-          </Form.Select>
+          </Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
