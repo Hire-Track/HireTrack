@@ -16,11 +16,11 @@ const columns = [{
   headerStyle: { color: '#347571'},
   style: {color: '#224e4b'}
 }, {
-  // dataField: 'location',
-  // text: 'Location',
-  // headerStyle: { color: '#347571'},
-  // style: {color: '#224e4b'}
-// }, {
+  dataField: 'location',
+  text: 'Location',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
+}, {
   dataField: 'application',
   text: 'Application',
   headerStyle: { color: '#347571'},
@@ -30,11 +30,11 @@ const columns = [{
   text: 'Type',
   headerStyle: { color: '#347571'},
   style: {color: '#224e4b'}
-// }, {
-  // dataField: 'description',
-  // text: 'Description',
-  // headerStyle: { color: '#347571'},
-  // style: {color: '#224e4b'}
+}, {
+  dataField: 'description',
+  text: 'Description',
+  headerStyle: { color: '#347571'},
+  style: {color: '#224e4b'}
 }, {
   editable: false,
   formatter: (content, row) => {
@@ -96,8 +96,10 @@ function JobDashboard() {
         id: job._id,
         title: job.jobTitle, 
         company: job.jobCompany,
+        location: job.jobLocation,
         application: job.appLink,
-        type: job.jobType
+        type: job.jobType,
+        description: job.jobDescription
       }
 
       dataArray.push(each)
@@ -110,8 +112,10 @@ function JobDashboard() {
     let values = {
       jobTitle: row.title,
       jobCompany: row.company,
+      jobLocation: row.location,
       appLink: row.application,
-      jobType: row.type
+      jobType: row.type,
+      jobDescription: row.description
     }
 
     // PUT to DB
