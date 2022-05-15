@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./JobDashboard.css";
 
 const AddJob = () => {
@@ -72,9 +73,10 @@ const AddJob = () => {
           <Form.Control placeholder="Description: skills, salary, and benefits as applicable" name="jobDescription" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-        <Button type="submit">
-          Add
-        </Button>
+        <Button type="submit">Add</Button>
+        <Link to="/job-dashboard">
+          <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
+        </Link>
       </Form>
     </div>
   );
