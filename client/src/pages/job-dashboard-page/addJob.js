@@ -16,6 +16,9 @@ const AddJob = () => {
     e.persist();
     const token = localStorage.getItem("token");
 
+    // replace empty/undefined fields with emptry strings to make them editable
+    checkForEmptyFields();
+
     // POST to DB
     fetch('/api/jobs', {
       method: 'POST',
@@ -26,6 +29,12 @@ const AddJob = () => {
       body: JSON.stringify(values)
     }).then(onSubmitSuccess()).catch(err => console.error(err))
   };
+
+  const checkForEmptyFields = () => {
+    values.jobLocation = (values.jobLocation === undefined) ? '' : values.jobLocation;
+    values.appLink = (values.appLink === undefined) ? '' : values.appLink;
+    values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
+  }
 
   const onSubmitSuccess = () => {
     window.location.href = "/job-dashboard"
