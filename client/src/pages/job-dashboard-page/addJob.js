@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./JobDashboard.css";
 
 const AddJob = () => {
@@ -16,6 +17,9 @@ const AddJob = () => {
     e.persist();
     const token = localStorage.getItem("token");
 
+    // replace empty/undefined fields with emptry strings to make them editable
+    checkForEmptyFields();
+
     // POST to DB
     fetch('/api/jobs', {
       method: 'POST',
@@ -27,45 +31,52 @@ const AddJob = () => {
     }).then(onSubmitSuccess()).catch(err => console.error(err))
   };
 
+  const checkForEmptyFields = () => {
+    values.jobLocation = (values.jobLocation === undefined) ? '' : values.jobLocation;
+    values.appLink = (values.appLink === undefined) ? '' : values.appLink;
+    values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
+  }
+
   const onSubmitSuccess = () => {
     window.location.href = "/job-dashboard"
   }
 
   return (
     <div className="add-job-padding">
-      <h3 className="jobs-header-2">Add job</h3>
+      <h3 className="jobs-header-2">Add Job</h3>
       <Form onSubmit={onSubmit}>
         <Form.Group>
-          <Form.Control placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
+          <Form.Control required placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Control placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
+          <Form.Control required placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
-        {/* <Form.Group>
+        <Form.Group>
           <Form.Control placeholder="Location" name="jobLocation" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br /> */}
+        <br />
         <Form.Group>
           <Form.Control placeholder="Link to Application" name="appLink" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
         <Form.Group>
-          <Form.Select aria-label="Default select example" name="jobType" onChange={onChange}>
-            <option>Select one</option>
+          <Form.Control required as="select" aria-label="Default select example" name="jobType" onChange={onChange}>
+            <option value="">Type: </option>
             <option value="INTERNSHIP">INTERNSHIP</option>
             <option value="FULLTIME">FULLTIME</option>
-          </Form.Select>
+          </Form.Control>
         </Form.Group>
         <br />
-        {/* <Form.Group>
-          <Form.Control placeholder="Job Description" name="jobDescription" onChange={onChange}></Form.Control>
+        <Form.Group>
+          <Form.Control placeholder="Description: skills, salary, and benefits as applicable" name="jobDescription" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br /> */}
-        <Button type="submit">
-          Submit
-        </Button>
+        <br />
+        <Button type="submit">Add</Button>
+        <Link to="/job-dashboard">
+          <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
+        </Link>
       </Form>
     </div>
   );
