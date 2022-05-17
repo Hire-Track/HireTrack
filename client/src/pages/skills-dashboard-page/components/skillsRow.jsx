@@ -3,20 +3,27 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { SkillCard, SkillListItem } from "./skillCard";
 import SkillsModal from "./modal";
-import { getSkills } from "../../../components/apis/skills";
+import { getSkills, getJobsBySkills } from "../../../components/apis/skills";
 import "../styles.css";
 
 const SkillsRow = () => {
   const [skills, setSkills] = useState({ topSkills: [], remainingSkills: [] });
   const [parsedSkills, setParsedSkills] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalData, setModalData] = useState({ id: "", name: "", level: "" });
+  const [modalData, setModalData] = useState({ id: "", name: "", level: "",  });
 
   // Get all skills on page load
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getSkills();
-      setParsedSkills(data);
+      const jobs = await getJobsBySkills();
+      // Add job ids associated with each skill
+      const allSkills = await getSkills().then((skills) => {
+        skills.forEach((skill) => {
+          skill.jobs = jobs[skill._id];
+        });
+        return skills;
+      });
+      setParsedSkills(allSkills);
     };
     fetchData();
   }, [showModal]);
@@ -26,7 +33,7 @@ const SkillsRow = () => {
     const sortSkills = () => {
       // Sort by most in demand (jobs count)
       parsedSkills.sort(function (a, b) {
-        return b.jobs - a.jobs;
+        return b.jobs.length - a.jobs.length;
       });
       // Set Skills
       setSkills({
@@ -38,7 +45,7 @@ const SkillsRow = () => {
                 id={_id}
                 name={skillName}
                 level={skillLevel}
-                jobCount={jobs}
+                jobs={jobs}
                 handleOpen={handleOpen}
               />
             </Col>
@@ -51,7 +58,7 @@ const SkillsRow = () => {
               key={index}
               name={skillName}
               level={skillLevel}
-              jobCount={jobs}
+              jobs={jobs}
               handleOpen={handleOpen}
             />
           )),
@@ -60,9 +67,9 @@ const SkillsRow = () => {
     sortSkills();
   }, [parsedSkills]);
 
-  const handleOpen = (id, name, level) => {
+  const handleOpen = (id, name, level, jobs) => {
     setShowModal(true);
-    setModalData({ id: id, name: name, level: level });
+    setModalData({ id: id, name: name, level: level, jobs: jobs });
   };
 
   const handleClose = () => {
@@ -82,6 +89,7 @@ const SkillsRow = () => {
         id={modalData.id}
         name={modalData.name}
         level={modalData.level}
+        jobs={modalData.jobs}
       />
     </>
   );
