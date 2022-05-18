@@ -1,11 +1,14 @@
 import React from "react";
 
 const JobsList = ({ jobsIds, jobs }) => {
+  const percent = (
+    <span className="header-2">
+      <strong>{Math.round((jobsIds.length / Object.keys(jobs).length) * 100)}%</strong>
+    </span>
+  );
   return (
-    <div>
-      This skill is found in{" "}
-      {Math.round((jobsIds.length / Object.keys(jobs).length) * 100)}% if your
-      applications.
+    <div className="body-text">
+      This skill is found in {percent} of your applications.
       <p />
       <u>Jobs That Require This Skill:</u>
       <br />
