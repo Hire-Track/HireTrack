@@ -24,7 +24,7 @@ export const SkillListItem = ({ id, name, level, jobs, handleOpen }) => {
     <li
       className="skills-item"
       onClick={() => {
-        handleOpen(id, name, level);
+        handleOpen(id, name, level, jobs);
       }}
     >
       <strong>{name}</strong> {level} – {jobs.length}
