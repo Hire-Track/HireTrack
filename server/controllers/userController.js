@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const transporter = require('../utils/sendMail')
 
 // @desc    Authenticate a user
 // @route   POST /api/users/login
@@ -68,6 +69,12 @@ const registerUser = asyncHandler(async (req, res) => {
   })
 
   if (user) {
+    transporter.sendMail({
+      to: user.email,
+      from: 'hiretrackwebapp@gmail.com',
+      subject: 'signup success',
+      html: '<h1> Welcome to HireTrack, you have registered successfully!</h1>'
+    })
     res.status(201).json({
       _id: user.id,
       userName: user.userName,
