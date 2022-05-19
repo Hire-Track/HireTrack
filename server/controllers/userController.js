@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const transporter = require('../utils/sendMail')
+const crypto = require('crypto')
 
 // @desc    Authenticate a user
 // @route   POST /api/users/login
@@ -109,9 +110,42 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 }
 
+// @desc    reset Password for user
+// @route   POST /api/users/reset-password
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err)
+    }
+    const token = buffer.toString('hex')
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) {
+          return res.status(422).json({ error: 'User does not exist with that email' })
+        }
+        user.resetToken = token
+        user.expireToken = Date.now() + 3600000 // reset token expires after 1 hour
+        user.save().then((result) => {
+          transporter.sendMail({
+            to: user.email,
+            from: 'hiretrackwebapp@gmail.com',
+            subject: 'password reset',
+            html: `
+                     <p>You requested a password reset for your HireTrack Account</p>
+                     <h2>click on this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h2>
+                     `
+          })
+          res.status(201).json({ message: 'Check your email' })
+        })
+      })
+  })
+})
+
 module.exports = {
   registerUser,
   loginUser,
   updateUser,
-  getMe
+  getMe,
+  resetPassword
 }

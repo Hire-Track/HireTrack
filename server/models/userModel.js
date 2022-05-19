@@ -23,7 +23,9 @@ const userSchema = mongoose.Schema({
     type: Date,
     validate: [validator.isDate, 'invalid Date format']
   },
-  realName: { type: String }
+  realName: { type: String },
+  resetToken: { type: String },
+  expireToken: { type: Date }
 })
 
 module.exports = mongoose.model('User', userSchema)
