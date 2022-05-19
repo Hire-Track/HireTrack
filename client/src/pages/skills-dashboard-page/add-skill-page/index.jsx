@@ -12,7 +12,8 @@ const AddSkillPage = () => {
   const [showError, setShowError] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setShowLoading(true);
     if (skillName && skillLevel) {
       createSkill({ skillName: skillName, skillLevel: skillLevel });
