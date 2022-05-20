@@ -48,19 +48,19 @@ const AddJob = () => {
         <Form.Group>
           <Form.Control required placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+
         <Form.Group>
           <Form.Control required placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+
         <Form.Group>
           <Form.Control placeholder="Location" name="jobLocation" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+
         <Form.Group>
           <Form.Control placeholder="Link to Application" name="appLink" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+
         <Form.Group>
           <Form.Control required as="select" aria-label="Default select example" name="jobType" onChange={onChange}>
             <option value="">Type: </option>
@@ -68,15 +68,74 @@ const AddJob = () => {
             <option value="FULLTIME">FULLTIME</option>
           </Form.Control>
         </Form.Group>
-        <br />
+
         <Form.Group>
           <Form.Control placeholder="Description: skills, salary, and benefits as applicable" name="jobDescription" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
+
+        <div style={{ color: "#5dbb79" }}>Dates</div>
+        <Form.Group>
+          <Form.Control placeholder="Applied Date" name="dateApplied" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Response Date" name="dateResponse" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Interview Date" name="dateInterview" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Offer Date" name="dateOffer" onChange={onChange}></Form.Control>
+        </Form.Group>
+        <br />
+
+        <div style={{ color: "#5dbb79" }}>Status</div>
+        <Form.Group>
+          <Form.Control as="select" aria-label="Default select example" name="appStatus" onChange={onChange}>
+            <option value="">Status: </option>
+            <option value="Applied">Applied</option>
+            <option value="Waiting">Waiting</option>
+            <option value="Interview Set/Done">Interview Set/Done</option>
+          </Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Next steps" name="nextSteps" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control as="select" aria-label="Default select example" name="decision" onChange={onChange}>
+            <option value="">Decision: </option>
+            <option value="Offer">Offer</option>
+            <option value="Rejection">Rejection</option>
+            <option value="N/A">N/A</option>
+          </Form.Control>
+        </Form.Group>
+        <br />
+
+        <div style={{ color: "#5dbb79" }}>Contact</div>
+        <Form.Group>
+          <Form.Control placeholder="Name" name="contactName" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Phone" name="contactPhone" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Control placeholder="Email" name="contactEmail" onChange={onChange}></Form.Control>
+        </Form.Group>
+        <br />
+
         <Button type="submit">Add</Button>
         <Link to="/job-dashboard">
           <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
         </Link>
+        <br />
+        <br />
       </Form>
     </div>
   );
