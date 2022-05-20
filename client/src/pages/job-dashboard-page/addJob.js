@@ -28,7 +28,7 @@ const AddJob = () => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(values)
-    }).then(onSubmitSuccess()).catch(err => console.error(err))
+    }).then(response => onSubmitSuccess(response)).catch(err => console.error(err))
   };
 
   const checkForEmptyFields = () => {
@@ -37,7 +37,8 @@ const AddJob = () => {
     values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
   }
 
-  const onSubmitSuccess = () => {
+  const onSubmitSuccess = (response) => {
+    // TO DO: use response and fetch id to POST contact information
     window.location.href = "/job-dashboard"
   }
 
@@ -112,12 +113,7 @@ const AddJob = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Control as="select" aria-label="Default select example" name="decision" onChange={onChange}>
-            <option value="">Decision: </option>
-            <option value="Offer">Offer</option>
-            <option value="Rejection">Rejection</option>
-            <option value="N/A">N/A</option>
-          </Form.Control>
+          <Form.Control placeholder="Decision" name="decision" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />
 
