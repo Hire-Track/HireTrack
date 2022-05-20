@@ -76,29 +76,34 @@ const AddJob = () => {
 
         <div style={{ color: "#5dbb79" }}>Dates</div>
         <Form.Group>
-          <Form.Control placeholder="Applied Date" name="dateApplied" onChange={onChange}></Form.Control>
+          <Form.Control type="date" placeholder="Applied Date" name="dateApplied" onChange={onChange}></Form.Control>
         </Form.Group>
+        <div className="form-label">Applied Date</div>
 
         <Form.Group>
-          <Form.Control placeholder="Response Date" name="dateResponse" onChange={onChange}></Form.Control>
+          <Form.Control type="date" placeholder="Response Date" name="dateResponse" onChange={onChange}></Form.Control>
         </Form.Group>
+        <div className="form-label">Response Date</div>
 
         <Form.Group>
-          <Form.Control placeholder="Interview Date" name="dateInterview" onChange={onChange}></Form.Control>
+          <Form.Control type="date" placeholder="Interview Date" name="dateInterview" onChange={onChange}></Form.Control>
         </Form.Group>
+        <div className="form-label">Interview Date</div>
 
         <Form.Group>
-          <Form.Control placeholder="Offer Date" name="dateOffer" onChange={onChange}></Form.Control>
+          <Form.Control type="date" placeholder="Offer Date" name="dateOffer" onChange={onChange}></Form.Control>
         </Form.Group>
+        <div className="form-label">Offer Date</div>
         <br />
 
         <div style={{ color: "#5dbb79" }}>Status</div>
         <Form.Group>
           <Form.Control as="select" aria-label="Default select example" name="appStatus" onChange={onChange}>
             <option value="">Status: </option>
-            <option value="Applied">Applied</option>
-            <option value="Waiting">Waiting</option>
-            <option value="Interview Set/Done">Interview Set/Done</option>
+            <option value="APPLIED">APPLIED</option>
+            <option value="WAITING">WAITING</option>
+            <option value="INTERVIEW SCHEDULED">INTERVIEW SCHEDULED</option>
+            <option value="INTERVIEW DONE">INTERVIEW DONE</option>
           </Form.Control>
         </Form.Group>
 
@@ -116,7 +121,7 @@ const AddJob = () => {
         </Form.Group>
         <br />
 
-        <div style={{ color: "#5dbb79" }}>Contact</div>
+        {/* <div style={{ color: "#5dbb79" }}>Contact</div>
         <Form.Group>
           <Form.Control placeholder="Name" name="contactName" onChange={onChange}></Form.Control>
         </Form.Group>
@@ -128,7 +133,7 @@ const AddJob = () => {
         <Form.Group>
           <Form.Control placeholder="Email" name="contactEmail" onChange={onChange}></Form.Control>
         </Form.Group>
-        <br />
+        <br /> */}
 
         <Button type="submit">Add</Button>
         <Link to="/job-dashboard">
