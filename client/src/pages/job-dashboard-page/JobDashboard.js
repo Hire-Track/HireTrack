@@ -103,7 +103,6 @@ function JobDashboard() {
           }
         });
         const json = await response.json();
-        console.log(json);
         let data = populateTableData(json);
         setJobs(data);
         setLoading(true);

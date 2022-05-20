@@ -8,6 +8,12 @@ function JobDetails() {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
+  const onChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setJob({ ...job, [name]: value });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,10 +50,10 @@ function JobDetails() {
 					application: job.appLink,
 					type: job.jobType,
 					description: job.jobDescription,
-					applied: job.dateApplied,
-					response: job.dateResponse,
-					interview: job.dateInterview,
-					offer: job.dateOffer,
+					applied: job.dateApplied.slice(0, 10),
+					response: job.dateResponse.slice(0, 10),
+					interview: job.dateInterview.slice(0, 10),
+					offer: job.dateOffer.slice(0, 10),
 					status: job.appStatus,
 					next: job.nextSteps,
 					decision: job.decision
@@ -60,7 +66,7 @@ function JobDetails() {
 	return (
     <div className="add-job-padding">
 			{setLoading}
-      <h3 className="jobs-header-2">View Job</h3>
+      <h3 className="jobs-header-2">Job Details</h3>
       <Form>
         <Form.Group className="form-padding">
           <Form.Control required placeholder="Title" defaultValue={job.title} name="jobTitle"></Form.Control>
@@ -79,8 +85,8 @@ function JobDetails() {
         </Form.Group>
 
         <Form.Group className="form-padding">
-          <Form.Control required as="select" aria-label="Default select example" name="jobType">
-            <option value="">Type: </option>
+          <Form.Control required as="select" onChange={(e)=> onChange(e)} aria-label="Default select example" name="type">
+            <option value="" selected disabled>Type: {job.type}</option>
             <option value="INTERNSHIP">INTERNSHIP</option>
             <option value="FULLTIME">FULLTIME</option>
           </Form.Control>
@@ -93,30 +99,30 @@ function JobDetails() {
 
         <div style={{ color: "#5dbb79" }}>Dates</div>
         <Form.Group>
-          <Form.Control type="date" placeholder="Applied Date" name="dateApplied"></Form.Control>
+          <Form.Control type="date" placeholder="Applied Date" value={job.applied} name="dateApplied"></Form.Control>
         </Form.Group>
         <div className="form-label">Applied Date</div>
 
         <Form.Group>
-          <Form.Control type="date" placeholder="Response Date" name="dateResponse"></Form.Control>
+          <Form.Control type="date" placeholder="Response Date" value={job.response} name="dateResponse"></Form.Control>
         </Form.Group>
         <div className="form-label">Response Date</div>
 
         <Form.Group>
-          <Form.Control type="date" placeholder="Interview Date" name="dateInterview"></Form.Control>
+          <Form.Control type="date" placeholder="Interview Date" value={job.interview} name="dateInterview"></Form.Control>
         </Form.Group>
         <div className="form-label">Interview Date</div>
 
         <Form.Group>
-          <Form.Control type="date" placeholder="Offer Date" name="dateOffer"></Form.Control>
+          <Form.Control type="date" placeholder="Offer Date" value={job.offer} name="dateOffer"></Form.Control>
         </Form.Group>
         <div className="form-label">Offer Date</div>
         <br />
 
-        <div style={{ color: "#5dbb79" }}>Status</div>
+        <div style={{ color: "#5dbb79" }}>Process</div>
         <Form.Group className="form-padding">
-          <Form.Control as="select" aria-label="Default select example" name="appStatus">
-            <option value="">Status: </option>
+          <Form.Control required as="select" onChange={(e)=> onChange(e)} aria-label="Default select example" name="status">
+            <option value="" selected disabled>Status: {job.status}</option>
             <option value="APPLIED">APPLIED</option>
             <option value="WAITING">WAITING</option>
             <option value="INTERVIEW SCHEDULED">INTERVIEW SCHEDULED</option>
