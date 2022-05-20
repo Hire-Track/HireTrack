@@ -46,23 +46,23 @@ const AddJob = () => {
     <div className="add-job-padding">
       <h3 className="jobs-header-2">Add Job</h3>
       <Form onSubmit={onSubmit}>
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required placeholder="Title" name="jobTitle" onChange={onChange}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required placeholder="Company" name="jobCompany" onChange={onChange}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Location" name="jobLocation" onChange={onChange}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Link to Application" name="appLink" onChange={onChange}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required as="select" aria-label="Default select example" name="jobType" onChange={onChange}>
             <option value="">Type: </option>
             <option value="INTERNSHIP">INTERNSHIP</option>
@@ -98,7 +98,7 @@ const AddJob = () => {
         <br />
 
         <div style={{ color: "#5dbb79" }}>Status</div>
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control as="select" aria-label="Default select example" name="appStatus" onChange={onChange}>
             <option value="">Status: </option>
             <option value="APPLIED">APPLIED</option>
@@ -108,11 +108,11 @@ const AddJob = () => {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Next steps" name="nextSteps" onChange={onChange}></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Decision" name="decision" onChange={onChange}></Form.Control>
         </Form.Group>
         <br />

@@ -62,23 +62,23 @@ function JobDetails() {
 			{setLoading}
       <h3 className="jobs-header-2">View Job</h3>
       <Form>
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required placeholder="Title" defaultValue={job.title} name="jobTitle"></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required placeholder="Company" defaultValue={job.company} name="jobCompany"></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Location" defaultValue={job.location} name="jobLocation"></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Link to Application" defaultValue={job.application} name="appLink"></Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control required as="select" aria-label="Default select example" name="jobType">
             <option value="">Type: </option>
             <option value="INTERNSHIP">INTERNSHIP</option>
@@ -114,7 +114,7 @@ function JobDetails() {
         <br />
 
         <div style={{ color: "#5dbb79" }}>Status</div>
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control as="select" aria-label="Default select example" name="appStatus">
             <option value="">Status: </option>
             <option value="APPLIED">APPLIED</option>
@@ -124,12 +124,12 @@ function JobDetails() {
           </Form.Control>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Next steps" defaultValue={job.next} name="nextSteps"></Form.Control>
         </Form.Group>
 
         
-        <Form.Group>
+        <Form.Group className="form-padding">
           <Form.Control placeholder="Decision" defaultValue={job.decision} name="decision"></Form.Control>
         </Form.Group>
         <br />
