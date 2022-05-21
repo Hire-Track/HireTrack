@@ -97,7 +97,7 @@ const AddJob = () => {
         <div className="form-label">Offer Date</div>
         <br />
 
-        <div style={{ color: "#5dbb79" }}>Status</div>
+        <div style={{ color: "#5dbb79" }}>Process</div>
         <Form.Group className="form-padding">
           <Form.Control as="select" aria-label="Default select example" name="appStatus" onChange={onChange}>
             <option value="">Status: </option>
