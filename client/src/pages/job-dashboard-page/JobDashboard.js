@@ -57,7 +57,20 @@ const columns = [{
       </button>
     )
   }
+}, {
+  editable: false,
+  formatter: (content, row) => {
+    return (
+      <button className='delete-button' onClick = {() => jobDetails(row.id)}>
+        More
+      </button>
+    )
+  }
 }];
+
+const jobDetails = (jobID) => {
+  window.location.href = `/job-dashboard/${jobID}`
+}
 
 const deleteJob = (jobId) => {
   if (window.confirm("Are you sure you want to delete this job?")) {
@@ -90,7 +103,6 @@ function JobDashboard() {
           }
         });
         const json = await response.json();
-        console.log(json);
         let data = populateTableData(json);
         setJobs(data);
         setLoading(true);
