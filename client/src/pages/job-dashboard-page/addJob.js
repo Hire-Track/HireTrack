@@ -5,12 +5,19 @@ import "./JobDashboard.css";
 
 const AddJob = () => {
   const [values, setValues] = useState({});
+  const [contact, setContact] = useState({});
 
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setValues({ ...values, [name]: value });
   };
+
+  const onContactChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setContact({ ...contact, [name]: value});
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +35,9 @@ const AddJob = () => {
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(values)
-    }).then(response => onSubmitSuccess(response)).catch(err => console.error(err))
+    }).then( async (response) => {
+      onSubmitSuccess(await response.json(), token).catch(err => console.error(err))
+    })
   };
 
   const checkForEmptyFields = () => {
@@ -37,9 +46,21 @@ const AddJob = () => {
     values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
   }
 
-  const onSubmitSuccess = (response) => {
-    // TO DO: use response and fetch id to POST contact information
-    window.location.href = "/job-dashboard"
+  const onSubmitSuccess = (response, token) => {
+    // POST contact information to DB
+    if (contact.contactName !== undefined && contact.contactName.trim().length > 0) {
+      const id = {jobID: response._id};
+      const contactInfo = Object.assign(contact, id);
+
+      fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(contactInfo)
+      }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
+    } 
   }
 
   return (
@@ -117,19 +138,19 @@ const AddJob = () => {
         </Form.Group>
         <br />
 
-        {/* <div style={{ color: "#5dbb79" }}>Contact</div>
-        <Form.Group>
-          <Form.Control placeholder="Name" name="contactName" onChange={onChange}></Form.Control>
+        <div style={{ color: "#5dbb79" }}>Contact Information</div>
+        <Form.Group className="form-padding">
+          <Form.Control placeholder="Name" name="contactName" onChange={onContactChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="form-padding">
+          <Form.Control placeholder="Phone" name="contactPhone" onChange={onContactChange}></Form.Control>
         </Form.Group>
 
         <Form.Group>
-          <Form.Control placeholder="Phone" name="contactPhone" onChange={onChange}></Form.Control>
+          <Form.Control placeholder="Email" name="contactEmail" onChange={onContactChange}></Form.Control>
         </Form.Group>
-
-        <Form.Group>
-          <Form.Control placeholder="Email" name="contactEmail" onChange={onChange}></Form.Control>
-        </Form.Group>
-        <br /> */}
+        <br />
 
         <Button type="submit">Add</Button>
         <Link to="/job-dashboard">
