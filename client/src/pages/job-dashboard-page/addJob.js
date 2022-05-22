@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./JobDashboard.css";
+import validator from 'validator';
 
 const AddJob = () => {
   const [values, setValues] = useState({});
@@ -27,23 +28,42 @@ const AddJob = () => {
     // replace empty/undefined fields with emptry strings to make them editable
     checkForEmptyFields();
 
-    // POST to DB
-    fetch('/api/jobs', {
-      method: 'POST',
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(values)
-    }).then( async (response) => {
-      onSubmitSuccess(await response.json(), token).catch(err => console.error(err))
-    })
+    // validate contact information (phone, email)
+    if (validateContactInfo(contact)) {
+      // POST job to DB
+      fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(values)
+      }).then( async (response) => {
+        onSubmitSuccess(await response.json(), token).catch(err => console.error(err))
+      })
+    }
   };
 
   const checkForEmptyFields = () => {
     values.jobLocation = (values.jobLocation === undefined) ? '' : values.jobLocation;
     values.appLink = (values.appLink === undefined) ? '' : values.appLink;
     values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
+  }
+
+  const validateContactInfo = (contact) => {
+    const validPhoneReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+    if (contact.contactPhone !== undefined && contact.contactPhone.trim().length > 0) {
+      if (validPhoneReg.test(contact.contactPhone) === false) {
+        return false;
+      }
+    }
+
+    if (contact.contactEmail !== undefined && contact.contactEmail.trim().length > 0) {
+      if (validator.isEmail(contact.contactEmail) === false) {
+        return false;
+      }
+    }
+    return true;
   }
 
   const onSubmitSuccess = (response, token) => {
@@ -60,7 +80,9 @@ const AddJob = () => {
         },
         body: JSON.stringify(contactInfo)
       }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
-    } 
+    } else {
+      window.location.href = "/job-dashboard";
+    }
   }
 
   return (
