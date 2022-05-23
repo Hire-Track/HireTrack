@@ -27,3 +27,12 @@
   background-color: #FDFEFD;
   font-size: small;
 }
+
+.form-label {
+  font-size: small;
+  color: #224e4b;
+}
+
+.form-padding {
+  padding-bottom: 5px;
+}

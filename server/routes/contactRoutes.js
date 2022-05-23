@@ -57,30 +57,28 @@ const { protect } = require('../middleware/authMiddleware.js')
 
 /**
  * @swagger
- * /contacts:
+ * /contacts/{jobID}:
  *   get:
  *     summary: Get all current user's contacts for a given jobID - Need Auth
  *     tags: [Contacts]
  *     security:
  *       - BearerAuth: [read]
-*     requestBody:
- *       required: true
- *       content:
- *         application/x-www-form-urlencoded:
- *           schema:
- *             type: object
- *             required:
- *               - jobID
- *             properties:
- *               jobID:
- *                 type: String
- *                 description: ID of the user's job to place this contact under
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: String
+ *         required: true
+ *         description: MongoDB job ID of the job associated with contact
  *     responses:
  *       200:
  *         description: Success - all User's contacts for this JobID in JSON Format
  *       401:
  *         description: Not Authorized
  */
+// get contacts
+router.route('/:id').get(protect, getContacts)
+
 /**
  * @swagger
  * /contacts:
@@ -125,8 +123,8 @@ const { protect } = require('../middleware/authMiddleware.js')
  *       401:
  *         description: Not Authorized
  */
-// get and create contacts
-router.route('/').get(protect, getContacts).post(protect, setContact)
+// create contacts
+router.route('/').post(protect, setContact)
 
 /**
 * @swagger
