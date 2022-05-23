@@ -110,10 +110,10 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
 }
 
-// @desc    reset Password for user
+// @desc    Send password reset email for user
 // @route   POST /api/users/reset-password
 // @access  Public
-const resetPassword = asyncHandler(async (req, res) => {
+const sendResetPassword = asyncHandler(async (req, res) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       console.log(err)
@@ -133,7 +133,7 @@ const resetPassword = asyncHandler(async (req, res) => {
             subject: 'password reset',
             html: `
                      <p>You requested a password reset for your HireTrack Account</p>
-                     <h2>click on this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h2>
+                     <h2>click on this <a href="http://localhost:3000/users/reset/${token}">link</a> to reset password</h2>
                      `
           })
           res.status(201).json({ message: 'Check your email' })
@@ -142,10 +142,42 @@ const resetPassword = asyncHandler(async (req, res) => {
   })
 })
 
+// @desc    Reset user password
+// @route   PUT /api/users/reset/:token
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+  console.log(req.params)
+  const user = await User.findOne({ resetToken: req.params.token })
+
+  // Check for user
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found with that reset token, invalid token')
+  }
+
+  // Check if token has expired
+  const now = new Date()
+  if (user.expireToken < Date.parse(now)) {
+    res.status(401)
+    throw new Error('Sprry this token has expired, please request a new link')
+  }
+
+  // hash password
+  const salt = await bcrypt.genSalt(10)
+  const newHashedPassword = await bcrypt.hash(req.body.password, salt)
+
+  // store new password
+  const updatedUser = await User.findByIdAndUpdate(user.id, { password: newHashedPassword })
+
+  // return 200 and updatedUser
+  res.status(200).json(updatedUser.email)
+})
+
 module.exports = {
   registerUser,
   loginUser,
   updateUser,
   getMe,
+  sendResetPassword,
   resetPassword
 }

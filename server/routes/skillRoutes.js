@@ -170,7 +170,7 @@ router.route('/').get(protect, getSkills).post(protect, setSkill)
 *         description: Not Authorized
 */
 
-// update aand delete skills
+// update and delete skills
 router.route('/:id').delete(protect, deleteSkill).put(protect, updateSkill)
 
 // get skill matches
