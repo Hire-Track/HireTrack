@@ -7,6 +7,7 @@ import validator from 'validator';
 const AddJob = () => {
   const [values, setValues] = useState({});
   const [contact, setContact] = useState({});
+  const [error, setError] = useState(false);
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -29,7 +30,9 @@ const AddJob = () => {
     checkForEmptyFields();
 
     // validate contact information (phone, email)
-    if (validateContactInfo(contact)) {
+    if (validateContactInfo(contact) === false) {
+      setError(true);
+    } else {
       // POST job to DB
       fetch('/api/jobs', {
         method: 'POST',
@@ -162,7 +165,7 @@ const AddJob = () => {
 
         <div style={{ color: "#5dbb79" }}>Contact Information</div>
         <Form.Group className="form-padding">
-          <Form.Control placeholder="Name" name="contactName" onChange={onContactChange}></Form.Control>
+          <Form.Control required={contact.contactEmail || contact.contactPhone} placeholder="Name" name="contactName" onChange={onContactChange}></Form.Control>
         </Form.Group>
 
         <Form.Group className="form-padding">
@@ -173,7 +176,12 @@ const AddJob = () => {
           <Form.Control placeholder="Email" name="contactEmail" onChange={onContactChange}></Form.Control>
         </Form.Group>
         <br />
-
+        {error && (
+          <span style={{ color: "red", fontSize: "small" }}>
+            Please enter a valid phone number and/or email
+          </span>
+        )}
+        <br />
         <Button type="submit">Add</Button>
         <Link to="/job-dashboard">
           <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
