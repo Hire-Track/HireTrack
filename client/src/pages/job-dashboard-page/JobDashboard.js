@@ -81,12 +81,34 @@ const deleteJob = (jobId) => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
-    }).then(onSubmitSuccess().catch(err => console.err(err)))
-  }
+    }).then( async (response) => {
+      onSubmitSuccess(await response.json(), token).catch(err => console.err(err))
+  })}
 }
 
-const onSubmitSuccess = () => {
-  window.location.href = "/job-dashboard"
+const onSubmitSuccess = (response, token) => {
+  fetch(`api/contacts/${response.id}`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }).then( async (contactResponse) => {
+    deleteContact(await contactResponse.json(), token).catch(err => console.err(err))
+  })
+}
+
+const deleteContact = (contactResponse, token) => {
+  if (contactResponse.length !== 0) {
+    fetch(`api/contacts/${contactResponse[0]._id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
+
+  } else {
+    window.location.href = "/job-dashboard"
+  }
 }
 
 function JobDashboard() {

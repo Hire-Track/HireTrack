@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./JobDashboard.css";
+import validator from 'validator';
 
 const AddJob = () => {
   const [values, setValues] = useState({});
+  const [contact, setContact] = useState({});
+  const [error, setError] = useState(false);
 
   const onChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setValues({ ...values, [name]: value });
   };
+
+  const onContactChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setContact({ ...contact, [name]: value});
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -20,15 +29,22 @@ const AddJob = () => {
     // replace empty/undefined fields with emptry strings to make them editable
     checkForEmptyFields();
 
-    // POST to DB
-    fetch('/api/jobs', {
-      method: 'POST',
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(values)
-    }).then(response => onSubmitSuccess(response)).catch(err => console.error(err))
+    // validate contact information (phone, email)
+    if (validateContactInfo(contact) === false) {
+      setError(true);
+    } else {
+      // POST job to DB
+      fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(values)
+      }).then( async (response) => {
+        onSubmitSuccess(await response.json(), token).catch(err => console.error(err))
+      })
+    }
   };
 
   const checkForEmptyFields = () => {
@@ -37,9 +53,39 @@ const AddJob = () => {
     values.jobDescription = (values.jobDescription === undefined) ? '' : values.jobDescription;
   }
 
-  const onSubmitSuccess = (response) => {
-    // TO DO: use response and fetch id to POST contact information
-    window.location.href = "/job-dashboard"
+  const validateContactInfo = (contact) => {
+    const validPhoneReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+    if (contact.contactPhone !== undefined && contact.contactPhone.trim().length > 0) {
+      if (validPhoneReg.test(contact.contactPhone) === false) {
+        return false;
+      }
+    }
+
+    if (contact.contactEmail !== undefined && contact.contactEmail.trim().length > 0) {
+      if (validator.isEmail(contact.contactEmail) === false) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const onSubmitSuccess = (response, token) => {
+    // POST contact information to DB
+    if (contact.contactName !== undefined && contact.contactName.trim().length > 0) {
+      const id = {jobID: response._id};
+      const contactInfo = Object.assign(contact, id);
+
+      fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(contactInfo)
+      }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
+    } else {
+      window.location.href = "/job-dashboard";
+    }
   }
 
   return (
@@ -117,20 +163,25 @@ const AddJob = () => {
         </Form.Group>
         <br />
 
-        {/* <div style={{ color: "#5dbb79" }}>Contact</div>
-        <Form.Group>
-          <Form.Control placeholder="Name" name="contactName" onChange={onChange}></Form.Control>
+        <div style={{ color: "#5dbb79" }}>Contact Information</div>
+        <Form.Group className="form-padding">
+          <Form.Control required={contact.contactEmail || contact.contactPhone} placeholder="Name" name="contactName" onChange={onContactChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="form-padding">
+          <Form.Control placeholder="Phone" name="contactPhone" onChange={onContactChange}></Form.Control>
         </Form.Group>
 
         <Form.Group>
-          <Form.Control placeholder="Phone" name="contactPhone" onChange={onChange}></Form.Control>
+          <Form.Control placeholder="Email" name="contactEmail" onChange={onContactChange}></Form.Control>
         </Form.Group>
-
-        <Form.Group>
-          <Form.Control placeholder="Email" name="contactEmail" onChange={onChange}></Form.Control>
-        </Form.Group>
-        <br /> */}
-
+        <br />
+        {error && (
+          <span style={{ color: "red", fontSize: "small" }}>
+            Please enter a valid phone number and/or email
+          </span>
+        )}
+        <br />
         <Button type="submit">Add</Button>
         <Link to="/job-dashboard">
           <Button style={{ marginLeft: "0.5rem" }}>Cancel</Button>
