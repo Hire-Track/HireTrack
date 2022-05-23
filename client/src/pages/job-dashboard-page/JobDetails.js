@@ -64,11 +64,23 @@ function JobDetails() {
   }
 
   const onSubmitSuccess = (response, token) => {
-    // PUT contact information to DB
-    if (contact.contactName !== undefined) {
-      const id = {jobID: response._id};
-      const contactInfo = Object.assign(contact, id);
+    const id = {jobID: response._id};
+    const contactInfo = Object.assign(contact, id);
+    
+    // POST contact information to DB
+    if (!('_id' in contact) && contact.contactName !== undefined) {
+      fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(contactInfo)
+      }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
+    }
 
+    // PUT contact information to DB
+    else if (contact.contactName !== undefined) {
       fetch(`/api/contacts/${contact._id}`, {
         method: 'PUT',
         headers: {
@@ -77,6 +89,7 @@ function JobDetails() {
         },
         body: JSON.stringify(contactInfo)
       }).then(window.location.href = "/job-dashboard").catch(err => console.log(err))
+
     } else {
       window.location.href = "/job-dashboard";
     }
