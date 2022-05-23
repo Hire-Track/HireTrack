@@ -1,3 +1,5 @@
+/* SERVE ROUTES AND SWAGGER DOCUMENTATION FOR SKILLS */
+
 const express = require('express')
 const router = express.Router()
 const {

@@ -1,3 +1,5 @@
+/* SCHEMA MODEL FOR SKILLS */
+
 const mongoose = require('mongoose')
 
 // schema for skills

@@ -1,3 +1,5 @@
+/* SCHEMA MODEL FOR JOBS */
+
 const mongoose = require('mongoose')
 const validator = require('validator')
 
