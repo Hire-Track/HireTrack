@@ -65,7 +65,7 @@ function JobDetails() {
 
   const onSubmitSuccess = (response, token) => {
     // PUT contact information to DB
-    if (contact.contactName !== undefined && contact.contactName.trim().length > 0) {
+    if (contact.contactName !== undefined) {
       const id = {jobID: response._id};
       const contactInfo = Object.assign(contact, id);
 
@@ -255,7 +255,7 @@ function JobDetails() {
 
         <div style={{ color: "#5dbb79" }}>Contact Information</div>
         <Form.Group className="form-padding">
-          <Form.Control placeholder="Name" defaultValue={contact.contactName} name="contactName" onSelect={(e)=> onContactChange(e)} onChange={(e) => onContactChange(e)}></Form.Control>
+          <Form.Control required={contact.contactEmail || contact.contactPhone} placeholder="Name" defaultValue={contact.contactName} name="contactName" onSelect={(e)=> onContactChange(e)} onChange={(e) => onContactChange(e)}></Form.Control>
         </Form.Group>
 
         <Form.Group className="form-padding">
