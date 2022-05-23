@@ -4,8 +4,10 @@ import { Form, Button } from "react-bootstrap";
 import "./JobDashboard.css";
 
 function JobDetails() {
-	const [job, setJob] = useState({})
+	const [job, setJob] = useState({});
+  const [contact, setContact] = useState({});
   const [loading, setLoading] = useState(false);
+
   const token = localStorage.getItem("token");
 
   const onChange = (e) => {
@@ -54,6 +56,29 @@ function JobDetails() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const windowUrl = window.location.pathname;
+		const id = windowUrl.split("/")[2];
+
+    const fetchContact = async () => {
+      try {
+        const contactResponse = await fetch(`/api/contacts/${id}`, {
+          headers: {
+            "Authorization": `Bearer ${token}`  
+          }
+        });
+        const contactJson = await contactResponse.json();
+        let contactData = populateContactData(contactJson);
+        setContact(contactData);
+        setLoading(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchContact();
+  }, []);
+
   const populateTableData = (json) => {
 		const windowUrl = window.location.pathname;
 		const id = windowUrl.split("/")[2];
@@ -81,6 +106,16 @@ function JobDetails() {
 			}
     });
 		return each;
+  }
+
+  const populateContactData = (contactJson) => {
+    let contactInfo = 
+    {
+      contactName: contactJson[0].contactName,
+      contactPhone: contactJson[0].contactPhone,
+      contactEmail: contactJson[0].contactEmail
+    }
+    return contactInfo
   }
 
 	return (
@@ -171,19 +206,19 @@ function JobDetails() {
         </Form.Group>
         <br />
 
-        {/* <div style={{ color: "#5dbb79" }}>Contact</div>
-        <Form.Group>
-          <Form.Control placeholder="Name" name="contactName" onChange={onChange}></Form.Control>
+        <div style={{ color: "#5dbb79" }}>Contact Information</div>
+        <Form.Group className="form-padding">
+          <Form.Control placeholder="Name" defaultValue={contact.contactName} name="contactName" onChange={onChange}></Form.Control>
+        </Form.Group>
+
+        <Form.Group className="form-padding">
+          <Form.Control placeholder="Phone" defaultValue={contact.contactPhone} name="contactPhone" onChange={onChange}></Form.Control>
         </Form.Group>
 
         <Form.Group>
-          <Form.Control placeholder="Phone" name="contactPhone" onChange={onChange}></Form.Control>
+          <Form.Control placeholder="Email" defaultValue={contact.contactEmail} name="contactEmail" onChange={onChange}></Form.Control>
         </Form.Group>
-
-        <Form.Group>
-          <Form.Control placeholder="Email" name="contactEmail" onChange={onChange}></Form.Control>
-        </Form.Group>
-        <br /> */}
+        <br />
 
         <Button type="submit">Save</Button>
         <Link to="/job-dashboard">

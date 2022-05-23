@@ -2,10 +2,10 @@ const asyncHandler = require('express-async-handler')
 const Contact = require('../models/contactsModel')
 
 // @desc    Get Contacts for an authorized user for a specific job
-// @route   GET /api/contacts
+// @route   GET /api/contacts/jobID
 // @access  Private - req.user retreived from auth middleware
 const getContacts = asyncHandler(async (req, res) => {
-  const contacts = await Contact.find({ user: req.user.id, job: req.body.jobID })
+  const contacts = await Contact.find({ user: req.user.id, job: req.params.id })
   res.status(200).json(contacts)
 })
 
