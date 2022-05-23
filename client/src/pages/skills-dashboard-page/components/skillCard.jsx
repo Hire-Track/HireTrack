@@ -27,7 +27,7 @@ export const SkillListItem = ({ id, name, level, jobs, handleOpen }) => {
         handleOpen(id, name, level, jobs);
       }}
     >
-      <strong>{name}</strong> {level} – {jobs.length}
+      <strong>{name}</strong> {level} – {jobs.length} Jobs
     </li>
   );
 };

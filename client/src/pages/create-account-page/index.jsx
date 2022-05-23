@@ -12,8 +12,6 @@ const CreateAccountPage = () => {
     userName: "",
     email: "",
     password: "",
-    gradDate: "",
-    realName: "",
   });
   const [password, setPassword] = useState("");
   const [isPwdValid, setIsPwdValid] = useState(false);

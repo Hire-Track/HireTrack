@@ -36,7 +36,7 @@ const HomePage = ({ user }) => {
       <Row className={"hero-row justify-content-center"} xs={1}>
         <Top />
       </Row>
-      {!user && <><ExampleCarousel /><About /></>}
+      <ExampleCarousel /><About />
     </Container>
   );
 };
