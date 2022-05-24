@@ -12,8 +12,6 @@ const CreateAccountPage = () => {
     userName: "",
     email: "",
     password: "",
-    gradDate: "",
-    realName: "",
   });
   const [password, setPassword] = useState("");
   const [isPwdValid, setIsPwdValid] = useState(false);
@@ -22,7 +20,6 @@ const CreateAccountPage = () => {
     userName: true,
     email: true,
     password: true,
-    gradDate: true,
   });
   const [showLoading, setShowLoading] = useState(false);
   const [duplicateUser, setDuplicateUser] = useState(false);
@@ -55,6 +52,9 @@ const CreateAccountPage = () => {
         window.location.reload();
       } else if (res === "user taken") {
         setDuplicateUser(true);
+      } else {
+        alert("Something went wrong! Please try again.");
+        window.location.reload();
       }
       setShowLoading(false);
     } else {
@@ -62,7 +62,6 @@ const CreateAccountPage = () => {
         userName: false,
         email: false,
         password: false,
-        gradDate: false,
       });
     }
   };
@@ -138,8 +137,11 @@ const CreateAccountPage = () => {
           value={gradDate}
           onChange={(value) => {
             setGradDate(value);
-            setPayload({ ...payload, gradDate: value });
-            setIsNew({ ...isNew, gradDate: false });
+            if (value) {
+              setPayload({ ...payload, gradDate: value });
+            } else if (!value && payload.gradDate) {
+              delete payload["gradDate"];
+            }
           }}
         />
         <p />

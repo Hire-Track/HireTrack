@@ -5,6 +5,7 @@ import { getUser } from "../../components/apis/users";
 import PageHeader from "../../components/header";
 import LoadingPage from "../loading-page";
 import dateFormat from "dateformat";
+import "./styles.css";
 
 const AccountPage = () => {
   const [userData, setUserData] = useState({
@@ -46,24 +47,30 @@ const AccountPage = () => {
         Edit Profile
       </Button>
     );
+    const TitleText = ({ title, data }) => (
+      <>
+        {title}:{" "}
+        <span className={"header-3 data"}>
+          <strong>{data}</strong>
+        </span>
+        <br />
+      </>
+    );
     return (
       <div className="main-content">
         <PageHeader text="Account Details" button={<EditProfileBtn />} />
         {userData.realName ? (
-          <>
-            Name: {userData.realName}
-            <br />
-          </>
+          <TitleText title="Name" data={userData.realName} />
         ) : (
           ""
         )}
-        Username: {userData.userName} <br />
-        Email: {userData.email} <br />
+        <TitleText title="Username" data={userData.userName} />
+        <TitleText title="Email" data={userData.email} />
         {userData.gradDate ? (
-          <>
-            Graduation Date: {formatDate(userData.gradDate)}
-            <br />
-          </>
+          <TitleText
+            title="Graduation Date"
+            data={formatDate(userData.gradDate)}
+          />
         ) : (
           ""
         )}

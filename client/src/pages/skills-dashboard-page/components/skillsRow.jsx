@@ -28,16 +28,49 @@ const SkillsRow = () => {
     const fetchData = async () => {
       const jobs = await getJobsBySkills();
       // Add job ids associated with each skill
-      const allSkills = await getSkills().then((skills) => {
-        skills.forEach((skill) => {
-          skill.jobs = jobs[skill._id];
+      getSkills()
+        .then((skills) => {
+          if (skills.length > 0) {
+            skills.forEach((skill) => {
+              skill.jobs = jobs[skill._id];
+            });
+            return skills;
+          }
+        })
+        .then((skills) => {
+          if (skills) {
+            setParsedSkills(skills);
+          }
         });
-        return skills;
-      });
-      setParsedSkills(allSkills);
     };
     fetchData();
   }, [showModal]);
+
+  function CreateSkill({ id, skillName, skillLevel, jobs, top }) {
+    if (top) {
+      return (
+        <Col>
+          <SkillCard
+            id={id}
+            name={skillName}
+            level={skillLevel}
+            jobs={jobs}
+            handleOpen={handleOpen}
+          />
+        </Col>
+      );
+    } else {
+      return (
+        <SkillListItem
+          id={id}
+          name={skillName}
+          level={skillLevel}
+          jobs={jobs}
+          handleOpen={handleOpen}
+        />
+      );
+    }
+  }
 
   // If there are skills, sort the skills and set the top three in demand skills
   useEffect(() => {
@@ -51,31 +84,32 @@ const SkillsRow = () => {
         topSkills: parsedSkills
           .slice(0, 3)
           .map(({ _id, skillName, skillLevel, jobs }, index) => (
-            <Col key={index}>
-              <SkillCard
-                id={_id}
-                name={skillName}
-                level={skillLevel}
-                jobs={jobs}
-                handleOpen={handleOpen}
-              />
-            </Col>
+            <CreateSkill
+              key={index}
+              id={_id}
+              skillName={skillName}
+              skillLevel={skillLevel}
+              jobs={jobs}
+              top={true}
+            />
           )),
         remainingSkills: parsedSkills
           .slice(3)
           .map(({ _id, skillName, skillLevel, jobs }, index) => (
-            <SkillListItem
-              id={_id}
+            <CreateSkill
               key={index}
-              name={skillName}
-              level={skillLevel}
+              id={_id}
+              skillName={skillName}
+              skillLevel={skillLevel}
               jobs={jobs}
-              handleOpen={handleOpen}
+              top={false}
             />
           )),
       });
     };
-    sortSkills();
+    if (parsedSkills.length > 0) {
+      sortSkills();
+    }
   }, [parsedSkills]);
 
   const handleOpen = (id, name, level, jobs) => {

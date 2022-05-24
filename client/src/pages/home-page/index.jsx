@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import HireTrackDescription from "./components/description";
 import LogInForm from "./components/loginForm";
 import About from "./components/about";
+import ExampleCarousel from "./components/carousel";
 import "./styles.css";
 
 const HomePage = ({ user }) => {
@@ -35,7 +36,7 @@ const HomePage = ({ user }) => {
       <Row className={"hero-row justify-content-center"} xs={1}>
         <Top />
       </Row>
-      <About />
+      <ExampleCarousel /><About />
     </Container>
   );
 };
