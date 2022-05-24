@@ -90,3 +90,24 @@ export const editUser = async (payload) => {
     return false;
   }
 };
+
+export const resetPass = async (payload, resetToken) => {
+  try {
+    const response = await fetch(`/api/users/${resetToken}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (response.status === 201) {
+      return "success";
+    } else if (response.status === 401) {
+      return "token expired";
+    }
+    return "invalid";
+  } catch {
+    console.log("ERROR: Reset Password");
+    return "error";
+  }
+};

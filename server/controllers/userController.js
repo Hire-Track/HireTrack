@@ -136,7 +136,7 @@ const sendResetPassword = asyncHandler(async (req, res) => {
     subject: 'password reset',
     html: `
               <p>You requested a password reset for your HireTrack Account</p>
-              <h2>click on this <a href="${process.env.BASE_URL}/users/reset/${token}">link</a> to reset password</h2>
+              <h2>click on this <a href="${process.env.BASE_URL}/reset/${token}">link</a> to reset password</h2>
               `
   })
   res.status(201).json({ message: 'Check your email' })
@@ -156,7 +156,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   // Check if token has expired
   const now = new Date()
   if (user.expireToken < Date.parse(now)) {
-    res.status(401)
+    res.status(401).json('token expired')
     throw new Error('Sorry this token has expired, please request a new link')
   }
 
@@ -165,10 +165,10 @@ const resetPassword = asyncHandler(async (req, res) => {
   const newHashedPassword = await bcrypt.hash(req.body.password, salt)
 
   // store new password
-  const updatedUser = await User.findByIdAndUpdate(user.id, { password: newHashedPassword })
+  await User.findByIdAndUpdate(user.id, { password: newHashedPassword })
 
-  // return 200 and updatedUser
-  res.status(200).json(`The user with the email ${updatedUser.email} password has been reset`)
+  // return 201 and updatedUser
+  res.status(201).json('success')
 })
 
 module.exports = {

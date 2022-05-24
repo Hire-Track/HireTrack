@@ -6,6 +6,7 @@ import AllRoutes from "../routes";
 import HireTrackNavBar from "../navBar";
 import HomePage from "../../pages/home-page";
 import CreateAccountPage from "../../pages/create-account-page";
+import ResetPage from "../../pages/reset-page";
 import LoadingPage from "../../pages/loading-page";
 import { userContext } from "./userContext";
 
@@ -41,6 +42,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route exact path="/signup" element={<CreateAccountPage />} />
+          <Route exact path="/reset/*" element={<ResetPage/>} />
           <Route exact path="/*" element={<HomePage user={false} />} />
         </Routes>
       </div>
