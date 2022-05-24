@@ -27,7 +27,7 @@ const getJobMatches = asyncHandler(async (req, res) => {
     for (const j in skills) {
       if ('jobSkills' in jobs[i]) {
         for (const k in jobs[i].jobSkills) {
-          if (jobs[i].jobSkills[k].includes(skills[j].skillName)) {
+          if (jobs[i].jobSkills[k].toLowerCase().includes(skills[j].skillName.toLowerCase())) {
             matchedSkills[jobs[i]._id].push(skills[j]._id)
           }
         }
@@ -95,7 +95,26 @@ const updateJob = asyncHandler(async (req, res) => {
     throw new Error('User not authorized')
   }
 
-  const updatedJob = await Job.findByIdAndUpdate(req.params.id, req.body)
+  const updatedJob = await Job.findByIdAndUpdate(req.params.id, {
+    // required fields
+    user: req.user.id,
+    jobTitle: req.body.jobTitle,
+    jobCompany: req.body.jobCompany,
+    jobType: req.body.jobType,
+
+    // optional fields
+    appLink: req.body.appLink,
+    jobSkills: req.body.jobDescription ? req.body.jobDescription.split(/[, ]+/) : [],
+    jobLocation: req.body.jobLocation,
+    jobDescription: req.body.jobDescription,
+    dateApplied: req.body.dateApplied,
+    dateResponse: req.body.dateResponse,
+    dateInterview: req.body.dateInterview,
+    dateOffer: req.body.dateOffer,
+    appStatus: req.body.appStatus,
+    nextSteps: req.body.nextSteps,
+    decision: req.body.decision
+  })
 
   // this will return 200 status and job detail PRE update
   // use get method to get updated job list for user
