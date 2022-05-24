@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
 import { SkillCard, SkillListItem } from "./skillCard";
 import SkillsModal from "./modal";
 import { getSkills, getJobsBySkills } from "../../../components/apis/skills";
@@ -13,6 +14,7 @@ const SkillsRow = () => {
   const [parsedSkills, setParsedSkills] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   // Get all jobs on page load
   useEffect(() => {
@@ -26,22 +28,26 @@ const SkillsRow = () => {
   // Get all skills on page load or when edited
   useEffect(() => {
     const fetchData = async () => {
-      const jobs = await getJobsBySkills();
-      // Add job ids associated with each skill
-      getSkills()
-        .then((skills) => {
-          if (skills.length > 0) {
-            skills.forEach((skill) => {
-              skill.jobs = jobs[skill._id];
-            });
-            return skills;
-          }
-        })
-        .then((skills) => {
-          if (skills) {
-            setParsedSkills(skills);
-          }
-        });
+      if (!showModal) {
+        setLoading(true);
+        const jobs = await getJobsBySkills();
+        // Add job ids associated with each skill
+        getSkills()
+          .then((skills) => {
+            if (skills.length > 0) {
+              skills.forEach((skill) => {
+                skill.jobs = jobs[skill._id];
+              });
+              return skills;
+            }
+          })
+          .then((skills) => {
+            if (skills) {
+              setParsedSkills(skills);
+            }
+            setLoading(false);
+          });
+      }
     };
     fetchData();
   }, [showModal]);
@@ -77,7 +83,11 @@ const SkillsRow = () => {
     const sortSkills = () => {
       // Sort by most in demand (jobs count)
       parsedSkills.sort(function (a, b) {
-        return b.jobs.length - a.jobs.length;
+        try {
+          return b.jobs.length - a.jobs.length;
+        } catch {
+          return a.jobs.length;
+        }
       });
       // Set Skills
       setSkills({
@@ -119,32 +129,43 @@ const SkillsRow = () => {
       name: name,
       level: level,
       jobs: jobs,
-      allJobs: allJobs,
     });
   };
 
   const handleClose = () => {
+    setLoading(true);
     setShowModal(false);
   };
 
-  return (
-    <>
-      <Row xs={1} md={3}>
-        {skills.topSkills}
-      </Row>
-      <p />
-      <Row>{skills.remainingSkills}</Row>
-      <SkillsModal
-        show={showModal}
-        handleModal={{ handleOpen: handleOpen, handleClose: handleClose }}
-        id={modalData.id}
-        name={modalData.name}
-        level={modalData.level}
-        jobs={modalData.jobs}
-        allJobs={modalData.allJobs}
-      />
-    </>
-  );
+  if (loading) {
+    return <>Loading...</>;
+  }
+  if (parsedSkills.length > 0) {
+    return (
+      <>
+        <Row xs={1} md={3}>
+          {skills.topSkills}
+        </Row>
+        <p />
+        <Row>{skills.remainingSkills}</Row>
+        <SkillsModal
+          show={showModal}
+          handleModal={{ handleOpen: handleOpen, handleClose: handleClose }}
+          id={modalData.id}
+          name={modalData.name}
+          level={modalData.level}
+          jobs={modalData.jobs}
+          allJobs={allJobs}
+        />
+      </>
+    );
+  } else {
+    return (
+      <>
+        You have no skills added! <Link to="/add-skill">Add one now</Link>
+      </>
+    );
+  }
 };
 
 export default SkillsRow;
