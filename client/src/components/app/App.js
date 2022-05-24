@@ -41,7 +41,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route exact path="/signup" element={<CreateAccountPage />} />
-          <Route exact path="/*" element={<HomePage />} />
+          <Route exact path="/*" element={<HomePage user={false} />} />
         </Routes>
       </div>
     );

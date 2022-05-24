@@ -8,12 +8,16 @@ import { editUser } from "../../../components/apis/users";
 const EditAccountForm = ({ show, handleClose, realName, gradDate }) => {
   const [realNameForm, setRealNameForm] = useState(realName);
   const [gradDateForm, setGradDateForm] = useState(
-    gradDate ? new Date(gradDate) : ""
+    gradDate ? new Date(gradDate) : null
   );
   const [isLoading, setIsLoading] = useState(false);
 
   const onDateChange = (value) => {
-    setGradDateForm(value);
+    if (value) {
+      setGradDateForm(value);
+    } else if (!value && gradDateForm) {
+      setGradDateForm(null);
+    }
   };
 
   const onSubmit = async (e) => {
