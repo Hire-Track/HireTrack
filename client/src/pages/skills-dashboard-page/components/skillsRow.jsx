@@ -28,13 +28,20 @@ const SkillsRow = () => {
     const fetchData = async () => {
       const jobs = await getJobsBySkills();
       // Add job ids associated with each skill
-      const allSkills = await getSkills().then((skills) => {
-        skills.forEach((skill) => {
-          skill.jobs = jobs[skill._id];
+      getSkills()
+        .then((skills) => {
+          if (skills.length > 0) {
+            skills.forEach((skill) => {
+              skill.jobs = jobs[skill._id];
+            });
+            return skills;
+          }
+        })
+        .then((skills) => {
+          if (skills) {
+            setParsedSkills(skills);
+          }
         });
-        return skills;
-      });
-      setParsedSkills(allSkills);
     };
     fetchData();
   }, [showModal]);

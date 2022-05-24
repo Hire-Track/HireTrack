@@ -13,16 +13,27 @@ const EditAccountForm = ({ show, handleClose, realName, gradDate }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onDateChange = (value) => {
-    setGradDateForm(value);
+    if (value) {
+      setGradDateForm(value);
+    } else if (!value && gradDateForm) {
+      setGradDateForm("");
+    }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const resp = await editUser({
-      realName: realNameForm,
-      gradDate: gradDateForm,
-    });
+    let resp;
+    if (gradDateForm === "") {
+      resp = await editUser({
+        realName: realNameForm,
+      });
+    } else {
+      resp = await editUser({
+        realName: realNameForm,
+        gradDate: gradDateForm,
+      });
+    }
     if (resp) {
       handleClose();
     }
