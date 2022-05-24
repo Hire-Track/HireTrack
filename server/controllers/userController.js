@@ -136,7 +136,7 @@ const sendResetPassword = asyncHandler(async (req, res) => {
     subject: 'password reset',
     html: `
               <p>You requested a password reset for your HireTrack Account</p>
-              <h2>click on this <a href="http://localhost:3000/users/reset/${token}">link</a> to reset password</h2>
+              <h2>click on this <a href="${process.env.BASE_URL}/users/reset/${token}">link</a> to reset password</h2>
               `
   })
   res.status(201).json({ message: 'Check your email' })
