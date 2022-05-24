@@ -137,6 +137,7 @@ const sendResetPassword = asyncHandler(async (req, res) => {
     html: `
               <p>You requested a password reset for your HireTrack Account</p>
               <h2>click on this <a href="${process.env.BASE_URL}/reset/${token}">link</a> to reset password</h2>
+              <h2>Please note: this reset link expires in 1 hour</h2>
               `
   })
   res.status(201).json({ message: 'Check your email' })
