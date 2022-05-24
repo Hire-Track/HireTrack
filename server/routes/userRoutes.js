@@ -1,10 +1,14 @@
+/* SERVE ROUTES AND SWAGGER DOCUMENTATION FOR USERS */
+
 const express = require('express')
 const router = express.Router()
 const {
   registerUser,
   loginUser,
   getMe,
-  updateUser
+  updateUser,
+  sendResetPassword,
+  resetPassword
 } = require('../controllers/userController.js')
 const { protect } = require('../middleware/authMiddleware.js')
 /**
@@ -90,7 +94,7 @@ const { protect } = require('../middleware/authMiddleware.js')
  *         description: User Already Exists
  */
 // register
-router.post('/register', registerUser)
+router.route('/register').post(registerUser)
 
 /**
  * @swagger
@@ -121,7 +125,7 @@ router.post('/register', registerUser)
  *         description: Invalid Credentials
  */
 // login
-router.post('/login', loginUser)
+router.route('/login').post(loginUser)
 
 /**
  * @swagger
@@ -138,7 +142,7 @@ router.post('/login', loginUser)
  *         description: Not Authorized
  */
 // get all info
-router.get('/me', protect, getMe)
+router.route('/me').get(protect, getMe)
 
 /**
  * @swagger
@@ -170,6 +174,10 @@ router.get('/me', protect, getMe)
  *         description: Not Authorized
  */
 // update info
-router.put('/me', protect, updateUser)
+router.route('/me').put(protect, updateUser)
+
+// reset password
+router.route('/reset-password').post(sendResetPassword)
+router.route('/reset/:token').put(resetPassword)
 
 module.exports = router

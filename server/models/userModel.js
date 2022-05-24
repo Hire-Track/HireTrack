@@ -1,3 +1,5 @@
+/* SCHEMA MODEL FOR USER */
+
 const mongoose = require('mongoose')
 const validator = require('validator')
 
@@ -20,10 +22,11 @@ const userSchema = mongoose.Schema({
     required: [true, 'please add a password']
   },
   gradDate: {
-    type: Date,
-    validate: [validator.isDate, 'invalid Date format']
+    type: Date
   },
-  realName: { type: String }
+  realName: { type: String },
+  resetToken: { type: String },
+  expireToken: { type: Date }
 })
 
 module.exports = mongoose.model('User', userSchema)

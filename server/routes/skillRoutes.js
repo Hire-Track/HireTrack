@@ -1,3 +1,5 @@
+/* SERVE ROUTES AND SWAGGER DOCUMENTATION FOR SKILLS */
+
 const express = require('express')
 const router = express.Router()
 const {
@@ -168,7 +170,7 @@ router.route('/').get(protect, getSkills).post(protect, setSkill)
 *         description: Not Authorized
 */
 
-// update aand delete skills
+// update and delete skills
 router.route('/:id').delete(protect, deleteSkill).put(protect, updateSkill)
 
 // get skill matches
