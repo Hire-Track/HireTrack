@@ -56,8 +56,7 @@ const setJob = asyncHandler(async (req, res) => {
 
     // optional fields
     appLink: req.body.appLink,
-    jobSkills: req.body.jobSkills,
-    jobBenefits: req.body.jobBenefits,
+    jobSkills: req.body.jobDescription ? req.body.jobDescription.split(/[, ]+/) : [],
     jobLocation: req.body.jobLocation,
     jobDescription: req.body.jobDescription,
     dateApplied: req.body.dateApplied,
