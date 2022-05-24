@@ -69,6 +69,8 @@ const LogInForm = () => {
           </Col>
           <Col>
             <Link to="/signup">Create Account</Link>
+            <p></p>
+            <Link to="/request-reset">Reset Password</Link>
           </Col>
         </Row>
       </Form>

@@ -133,7 +133,7 @@ const sendResetPassword = asyncHandler(async (req, res) => {
   transporter.sendMail({
     to: user.email,
     from: 'hiretrackwebapp@gmail.com',
-    subject: 'password reset',
+    subject: 'HireTrack App Password Reset',
     html: `
               <p>You requested a password reset for your HireTrack Account</p>
               <h2>click on this <a href="${process.env.BASE_URL}/reset/${token}">link</a> to reset password</h2>

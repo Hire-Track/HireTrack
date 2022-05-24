@@ -9,6 +9,7 @@ import SkillsDashboard from "../../pages/skills-dashboard-page";
 import AddSkillPage from "../../pages/skills-dashboard-page/add-skill-page";
 import AccountPage from "../../pages/account-page";
 import ResetPage from "../../pages/reset-page";
+import RequestResetPage from "../../pages/request-reset";
 
 const AllRoutes = ({ user }) => {
   const routeComponents = [
@@ -20,7 +21,8 @@ const AllRoutes = ({ user }) => {
     { path: "/skills", component: <SkillsDashboard /> },
     { path: "/add-skill", component: <AddSkillPage /> },
     { path: "/account", component: <AccountPage /> },
-    { path: "/reset/:token", component: <ResetPage /> }
+    { path: "/reset/:token", component: <ResetPage /> },
+    { path: "/request-reset", component: <RequestResetPage /> }
   ];
 
   return (

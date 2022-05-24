@@ -111,3 +111,24 @@ export const resetPass = async (payload, resetToken) => {
     return "error";
   }
 };
+
+export const requestReset = async (payload) => {
+  try {
+    const response = await fetch('/api/users/reset-password', {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (response.status === 201) {
+      return "success";
+    } else if (response.status === 401) {
+      return "invalid email";
+    }
+    return "invalid";
+  } catch {
+    console.log("ERROR: Request Reset Password");
+    return "error";
+  }
+};
