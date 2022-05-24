@@ -47,9 +47,6 @@ const { protect } = require('../middleware/authMiddleware.js')
  *         jobSkills:
  *           type: Array of Strings
  *           description: Skills listed for this job
- *         jobBenefits:
- *           type: Array of Strings
- *           description: Benefits listed for this job
  *         jobLocation:
  *           type: String
  *           description: location listed for this job
@@ -131,9 +128,6 @@ const { protect } = require('../middleware/authMiddleware.js')
  *               jobSkills:
  *                 type: Array of Strings
  *                 description: Skills listed for this job
- *               jobBenefits:
- *                 type: Array of Strings
- *                 description: Benefits listed for this job
  *               jobLocation:
  *                 type: String
  *                 description: location listed for this job
@@ -209,9 +203,6 @@ router.route('/').get(protect, getJobs).post(protect, setJob)
 *               jobSkills:
 *                 type: Array of Strings
 *                 description: Skills listed for this job
-*               jobBenefits:
-*                 type: Array of Strings
-*                 description: Benefits listed for this job
 *               jobLocation:
 *                 type: String
 *                 description: location listed for this job
