@@ -114,42 +114,40 @@ const generateToken = (id) => {
 // @route   POST /api/users/reset-password
 // @access  Public
 const sendResetPassword = asyncHandler(async (req, res) => {
-  crypto.randomBytes(32, (err, buffer) => {
-    if (err) {
-      console.log(err)
-    }
-    const token = buffer.toString('hex')
-    User.findOne({ email: req.body.email })
-      .then(user => {
-        if (!user) {
-          return res.status(422).json({ error: 'User does not exist with that email' })
-        }
-        user.resetToken = token
-        user.expireToken = Date.now() + 3600000 // reset token expires after 1 hour
-        user.save().then((result) => {
-          transporter.sendMail({
-            to: user.email,
-            from: 'hiretrackwebapp@gmail.com',
-            subject: 'password reset',
-            html: `
-                     <p>You requested a password reset for your HireTrack Account</p>
-                     <h2>click on this <a href="http://localhost:3000/users/reset/${token}">link</a> to reset password</h2>
-                     `
-          })
-          res.status(201).json({ message: 'Check your email' })
-        })
-      })
+  // generate reset token
+  const token = await crypto.randomBytes(32).toString('hex')
+
+  // find user
+  const user = await User.findOne({ email: req.body.email })
+  if (!user) {
+    res.status(401)
+    throw new Error('User does not exist with that email')
+  }
+
+  // set tokens
+  user.resetToken = token
+  user.expireToken = Date.now() + 3600000 // reset token expires after 1 hour
+  user.save()
+
+  // send mail
+  transporter.sendMail({
+    to: user.email,
+    from: 'hiretrackwebapp@gmail.com',
+    subject: 'password reset',
+    html: `
+              <p>You requested a password reset for your HireTrack Account</p>
+              <h2>click on this <a href="http://localhost:3000/users/reset/${token}">link</a> to reset password</h2>
+              `
   })
+  res.status(201).json({ message: 'Check your email' })
 })
 
 // @desc    Reset user password
 // @route   PUT /api/users/reset/:token
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  console.log(req.params)
-  const user = await User.findOne({ resetToken: req.params.token })
-
   // Check for user
+  const user = await User.findOne({ resetToken: req.params.token })
   if (!user) {
     res.status(401)
     throw new Error('User not found with that reset token, invalid token')
@@ -159,7 +157,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const now = new Date()
   if (user.expireToken < Date.parse(now)) {
     res.status(401)
-    throw new Error('Sprry this token has expired, please request a new link')
+    throw new Error('Sorry this token has expired, please request a new link')
   }
 
   // hash password
@@ -170,7 +168,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(user.id, { password: newHashedPassword })
 
   // return 200 and updatedUser
-  res.status(200).json(updatedUser.email)
+  res.status(200).json(`The user with the email ${updatedUser.email} password has been reset`)
 })
 
 module.exports = {
