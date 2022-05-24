@@ -27,7 +27,7 @@ const getSkillMatches = asyncHandler(async (req, res) => {
     for (const j in jobs) {
       if ('jobSkills' in jobs[j]) {
         for (const k in jobs[j].jobSkills) {
-          if (jobs[j].jobSkills[k].includes(skills[i].skillName)) {
+          if (jobs[j].jobSkills[k].toLowerCase().includes(skills[i].skillName.toLowerCase())) {
             matchedJobs[skills[i]._id].push(jobs[j]._id)
           }
         }

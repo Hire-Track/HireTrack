@@ -27,7 +27,6 @@ const jobSchema = mongoose.Schema(
       required: [true, 'please add if this is a fulltime or internship']
     },
     jobSkills: { type: [String] },
-    jobBenefits: { type: [String] },
     jobLocation: { type: String },
     jobDescription: { type: String },
     dateApplied: {

@@ -37,6 +37,7 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
       const resp = await deleteSkill(id);
       if (resp) {
         handleModal.handleClose();
+        window.location.reload();
       }
     }
   };
