@@ -33,6 +33,7 @@ const SkillsModal = ({ id, show, handleModal, name, level, jobs, allJobs }) => {
             skillName={name}
             showJobsModal={showJobsModal}
             handleModal={handleModal}
+            jobs={jobs}
           />
         )}
       </Modal.Body>

@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { updateSkill, deleteSkill } from "../../../components/apis/skills";
 import "../styles.css";
 
-const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
+const EditSkillForm = ({ id, skillName, showJobsModal, handleModal, jobs }) => {
   const [payload, setPayload] = useState({
     id: id,
     skillName: skillName,
@@ -22,9 +22,9 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
       const resp = await updateSkill(payload);
       if (resp) {
         showJobsModal();
-        handleModal.handleOpen(id, skillName, payload.skillLevel);
+        handleModal.handleOpen(id, skillName, payload.skillLevel, jobs);
       } else {
-        alert("error!");
+        alert("Error! Please try again");
       }
     } else {
       alert("Choose Level");
@@ -37,7 +37,6 @@ const EditSkillForm = ({ id, skillName, showJobsModal, handleModal }) => {
       const resp = await deleteSkill(id);
       if (resp) {
         handleModal.handleClose();
-        window.location.reload();
       }
     }
   };
